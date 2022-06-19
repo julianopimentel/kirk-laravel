@@ -675,6 +675,7 @@
         chart.render();
     </script>
 
+
     <script type="text/javascript">
         var options = {
             series: [{
