@@ -1,401 +1,248 @@
 <x-app-layout :assets="$assets ?? []">
 
-    <div class="container-fluid">
-
-        <!--
-                    <div class="fade-in">
-                        <div class="row">
-                            <div class="col-12 mb-4">
-                                <div class="hero text-white hero-bg-image">
-                                    <div class="hero-inner">
-                                        <h2>Welcome, {{ auth()->user()->name }}!</h2>
-                                        <p class="lead">This page is a place to view posts, their groups, and more.</p>
-                                    </div>
-                                </div>
-                            </div>
+    <div>
+        <div class="row">
+            @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Há novos cadastros a serem aprovados</h5>
+                            <a href="{{ route('peopleList.index') }}" class="btn btn-primary">Pré-cadastro</a>
                         </div>
                     </div>
-            -->
-
-
-
-        @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)
-            <div class="card card-accent-success mb-12" style="max-width: 18rem;">
-                <div class="card-body text-success">
-                    <h6 class="card-title">Há cadastros a serem aprovados</h6>
-                    <a href="{{ route('peopleList.index') }}" class="btn btn-primary">Pré-cadastro</a>
-                    </p>
                 </div>
-            </div>
-        @endif
-        @if ($appPermissao->view_people == true and $peopleativo == 0)
-            <div class="card card-accent-success mb-12" style="max-width: 25rem;">
-                <div class="card-body text-success">
-                    <h6 class="card-title">Gostaria de importar uma planilha com as Pessoas?</h6>
-                    <a href="{{ url('settings/backup') }}" class="btn btn-primary">Importar</a>
-                    </p>
-                </div>
-            </div>
-        @endif
-        <style type="text/css">
-            .btn {
-                margin-bottom: 4px;
-            }
-
-        </style>
-        <div class="fade-in">
-            @if ($appPermissao->home_social == true)
-                @if (($social->facebook_link !== null) | ($social->twitter_link !== null) | ($social->linkedin_link !== null) | ($social->youtube_link !== null) | ($social->instagram_link !== null) | ($social->vk_link !== null) | ($social->site_link !== null) | ($social->telegram_link !== null) | ($social->whatsapp_link !== null))
-                    <div class="row">
-                        <div class="col-12">
-                            <h6>Rede Sociais</h6>
-                            <div class="card-body">
-                                <p>
-                                    @if ($social->facebook_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->facebook_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-facebook-f">
-                                                </use>
-                                            </svg><span>Facebook</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->twitter_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->twitter_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-twitter">
-                                                </use>
-                                            </svg><span>Twitter</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->linkedin_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->linkedin_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-linkedin">
-                                                </use>
-                                            </svg><span>LinkedIn</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->youtube_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->youtube_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-youtube">
-                                                </use>
-                                            </svg><span>YouTube</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->instagram_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->instagram_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-instagram">
-                                                </use>
-                                            </svg><span>Instagram</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->vk_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->vk_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-vk"></use>
-                                            </svg><span>VK</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->site_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button" href="{{ $social->site_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                </use>
-                                            </svg><span>Website</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->telegram_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button"
-                                            href="https://t.me/{{ $social->telegram_link }}" target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-telegram">
-                                                </use>
-                                            </svg><span>Telegram</span>
-                                        </a>
-                                    @endif
-                                    @if ($social->whatsapp_link !== null)
-                                        <a class="btn btn-sm btn-dark" type="button"
-                                            href="https://api.whatsapp.com/send?phone={{ $social->whatsapp_link }}"
-                                            target="_blank">
-                                            <svg class="c-icon mr-2">
-                                                <use xlink:href="/icons/sprites/brand.svg#cib-whatsapp">
-                                                </use>
-                                            </svg><span>Whatsapp</span>
-                                        </a>
-                                    @endif
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                @endif
             @endif
-            @if ($appPermissao->home_message == true)
-                @if (!$notes->isEmpty())
-                    <h6>Mural de Recados</h6>
-                    <div class="row">
-                        @foreach ($notes as $note)
-                            <div class="col-12 col-sm-6 col-md-6 col-lg-3">
-                                <article class="article article-style-b">
-                                    <div class="article-header">
-                                        <div class="article-image">
-                                            <a href="recado/{{ $note->id }}">
-                                            @if (!empty($note->image))
-                                                <img src="{{ stream_get_contents($note->image)}}" width="100%" height="100%">
-                                            @else
-                                                <img src="assets/img/img0{{ $loop->iteration }}.jpg" width="100%"
-                                                    height="100%">
-                                            @endif
-                                            </a>
-                                        </div>
-                                        @if ($note->status_id == 2)
-                                            <div class="article-badge">
-                                                <div class="article-badge-item bg-danger"><i class="fas fa-fire"></i>
-                                                    Trending</div>
-                                            </div>
+            @if ($appPermissao->view_people == true and $peopleativo == 0)
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title text-success">Gostaria de importar uma planilha com as Pessoas?</h5>
+                            <a href="{{ url('settings/backup') }}" class="btn btn-primary">Importar</a>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        @if ($appPermissao->home_message == true)
+            @if (!$notes->isEmpty())
+                <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                    <div class="row row-cols-1 row-cols-md-2 g-4">
+                        <div class="col">
+                            @foreach ($notes as $note)
+                                <div class="card">
+                                    <div class="card-header">
+                                        Recado @if ($note->status_id == 2)
+                                            <span class="badge rounded-pill bg-danger">
+                                                <svg width="16px" height="16px" viewBox="0 0 1024 1024"
+                                                    xmlns="http://www.w3.org/2000/svg" class="icon">
+                                                    <path
+                                                        d="M834.1 469.2A347.49 347.49 0 0 0 751.2 354l-29.1-26.7a8.09 8.09 0 0 0-13 3.3l-13 37.3c-8.1 23.4-23 47.3-44.1 70.8-1.4 1.5-3 1.9-4.1 2-1.1.1-2.8-.1-4.3-1.5-1.4-1.2-2.1-3-2-4.8 3.7-60.2-14.3-128.1-53.7-202C555.3 171 510 123.1 453.4 89.7l-41.3-24.3c-5.4-3.2-12.3 1-12 7.3l2.2 48c1.5 32.8-2.3 61.8-11.3 85.9-11 29.5-26.8 56.9-47 81.5a295.64 295.64 0 0 1-47.5 46.1 352.6 352.6 0 0 0-100.3 121.5A347.75 347.75 0 0 0 160 610c0 47.2 9.3 92.9 27.7 136a349.4 349.4 0 0 0 75.5 110.9c32.4 32 70 57.2 111.9 74.7C418.5 949.8 464.5 959 512 959s93.5-9.2 136.9-27.3A348.6 348.6 0 0 0 760.8 857c32.4-32 57.8-69.4 75.5-110.9a344.2 344.2 0 0 0 27.7-136c0-48.8-10-96.2-29.9-140.9zM713 808.5c-53.7 53.2-125 82.4-201 82.4s-147.3-29.2-201-82.4c-53.5-53.1-83-123.5-83-198.4 0-43.5 9.8-85.2 29.1-124 18.8-37.9 46.8-71.8 80.8-97.9a349.6 349.6 0 0 0 58.6-56.8c25-30.5 44.6-64.5 58.2-101a240 240 0 0 0 12.1-46.5c24.1 22.2 44.3 49 61.2 80.4 33.4 62.6 48.8 118.3 45.8 165.7a74.01 74.01 0 0 0 24.4 59.8 73.36 73.36 0 0 0 53.4 18.8c19.7-1 37.8-9.7 51-24.4 13.3-14.9 24.8-30.1 34.4-45.6 14 17.9 25.7 37.4 35 58.4 15.9 35.8 24 73.9 24 113.1 0 74.9-29.5 145.4-83 198.4z" />
+                                                </svg>
+                                                Trending</span>
                                         @endif
+
                                     </div>
-                                    <div class="article-details">
-                                        <div class="article-title">
-                                            <h2><a
-                                                    href="recado/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
-                                            </h2>
-                                        </div>
-                                        <p> @php
+                                    <div class="card-body">
+                                        <h5 class="card-title"><a
+                                                href="recado/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
+                                        </h5>
+                                        <p class="card-text">@php
                                             echo mb_strimwidth($note->content, 0, 120, '...');
                                         @endphp</p>
                                     </div>
-                                </article>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-            @endif
-            @if ($appPermissao->home_financeiro == true)
-                <!-- /.row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Informações gerais</h6>
-                                <p>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="c-callout c-callout-info"><small class="text-muted">Total de
-                                                        Visitas a Conta</small>
-                                                    <div class="text-value-lg">{{ $totalvisitas }}</div>
-                                                </div>
-                                            </div>
-                                            <!-- /.col-->
-                                            <div class="col-6">
-                                                <div class="c-callout c-callout-danger"><small class="text-muted">Total
-                                                        de Conversões</small>
-                                                    <div class="text-value-lg"> {{ $totalconversao }}</div>
-                                                </div>
-                                            </div>
-                                            <!-- /.col-->
-                                        </div>
-                                        <!-- /.row-->
-                                        <hr class="mt-0">
-                                        Movimento finaceiro x Previsão
-                                        <div class="progress-group">
-                                            <div class="progress-group-header align-items-end">
-                                                <svg class="c-icon progress-group-icon">
-                                                    <use
-                                                        xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                    </use>
-                                                </svg>
-                                                <div>Dizimos</div>
-                                                <div class="ml-auto font-weight-bold mr-2"></div>
-                                                <div class="text-muted small"></div>
-                                            </div>
-                                            <div class="progress-group-bars">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: {{ $porcentage_dizimo }}%" aria-valuenow="56"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-group">
-                                            <div class="progress-group-header align-items-end">
-                                                <svg class="c-icon progress-group-icon">
-                                                    <use
-                                                        xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                    </use>
-                                                </svg>
-                                                <div>Ofertas</div>
-                                                <div class="ml-auto font-weight-bold mr-2"></div>
-                                                <div class="text-muted small"></div>
-                                            </div>
-                                            <div class="progress-group-bars">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: {{ $porcentage_oferta }}%" aria-valuenow="15"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-group">
-                                            <div class="progress-group-header align-items-end">
-                                                <svg class="c-icon progress-group-icon">
-                                                    <use
-                                                        xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                    </use>
-                                                </svg>
-                                                <div>Doações</div>
-                                                <div class="ml-auto font-weight-bold mr-2"></div>
-                                                <div class="text-muted small"></div>
-                                            </div>
-                                            <div class="progress-group-bars">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width: {{ $porcentage_doacao }}%" aria-valuenow="11"
-                                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="progress-group">
-                                            <div class="progress-group-header align-items-end">
-                                                <svg class="c-icon progress-group-icon">
-                                                    <use
-                                                        xlink:href="assets/icons/coreui/free-symbol-defs.svg#cui-globe-alt">
-                                                    </use>
-                                                </svg>
-                                                <div>Despesas</div>
-                                                <div class="ml-auto font-weight-bold mr-2"></div>
-                                                <div class="text-muted small"></div>
-                                            </div>
-                                            <div class="progress-group-bars">
-                                                <div class="progress progress-xs">
-                                                    <div class="progress-bar bg-success" role="progressbar"
-                                                        style="width:  {{ $porcentage_despesa }}%" aria-valuenow="8"
-                                                        aria-valuemin="0" aria-valuemax="100">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="card-footer text-muted">
+                                        2 days ago
                                     </div>
-                                    <!-- /.col-->
-                                    <div class="col-sm-6">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="c-callout c-callout-warning"><small
-                                                        class="text-muted">Total
-                                                        de Batismos</small>
-                                                    <div class="text-value-lg">{{ $totalbatismo }}</div>
-                                                </div>
-                                            </div>
-                                            <!-- /.col-->
-                                            <div class="col-6">
-                                                <div class="c-callout c-callout-success"><small
-                                                        class="text-muted">Total
-                                                        de Pessoas</small>
-                                                    <div class="text-value-lg">{{ $peopleativo }}</div>
-                                                </div>
-                                            </div>
-                                            <!-- /.col-->
-                                        </div>
-                                        <!-- /.row-->
-                                        <hr class="mt-0">
-                                        <div class="progress-group">
-                                            Gráfico do movimento
-                                            <div class="c-chart-wrapper">
-                                                <canvas id="chats"></canvas>
-                                            </div>
-                                        </div>
-                                        <!-- /.row-->
-                                    </div>
-
                                 </div>
-                                <!-- /.col-->
-                            </div>
+                        </div>
+            @endforeach
+    </div>
+    </div>
+    @endif
+    @endif
+    @if ($appPermissao->home_financeiro == true)
+    @endif
 
+    <div class="row">
+        @if ($appPermissao->home_social == true)
+            @if (($social->facebook_link !== null) | ($social->twitter_link !== null) | ($social->linkedin_link !== null) | ($social->youtube_link !== null) | ($social->instagram_link !== null) | ($social->vk_link !== null) | ($social->site_link !== null) | ($social->telegram_link !== null) | ($social->whatsapp_link !== null))
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">
+                            Redes Sociais
+                        </div>
+                        <div class="card-body">
+                            @if ($social->facebook_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->facebook_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z" />
+                                    </svg>
+                                    <span>Facebook</span>
+                                </a>
+                            @endif
+                            @if ($social->twitter_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->twitter_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+                                        <path
+                                            d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z" />
+                                    </svg>
+                                    <span>Twitter</span>
+                                </a>
+                            @endif
+                            @if ($social->linkedin_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->linkedin_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+                                        <path
+                                            d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+                                    </svg>
+                                    <span>LinkedIn</span>
+                                </a>
+                            @endif
+                            @if ($social->youtube_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->youtube_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z" />
+                                    </svg>
+                                    <span>YouTube</span>
+                                </a>
+                            @endif
+                            @if ($social->instagram_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->instagram_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z" />
+                                    </svg>
+                                    <span>Instagram</span>
+                                </a>
+                            @endif
+                            @if ($social->vk_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->vk_link }}"
+                                    target="_blank">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd" d="M23.405 16.865C22.8611 15.7695 22.1444 14.7688 21.2825 13.9013C20.9892 13.5603 20.6453 13.2238 20.3768 12.9612L20.3393 12.9245C20.2008 12.7889 20.0864 12.6764 19.9928 12.5795C21.1713 10.9407 22.18 9.18595 23.003 7.34222L23.0362 7.26783L23.0595 7.18976C23.1676 6.82687 23.2922 6.1368 22.8515 5.51317C22.396 4.86859 21.6666 4.75234 21.1782 4.75234H18.9311C18.4627 4.73087 17.9988 4.85751 17.6058 5.11498C17.2098 5.37439 16.9069 5.75278 16.7402 6.1951C16.2563 7.34779 15.6508 8.4442 14.9347 9.46598V6.83269C14.9347 6.4923 14.9027 5.92289 14.5382 5.44229C14.1018 4.86685 13.4707 4.75234 13.0326 4.75234H9.46708C9.00771 4.74172 8.56094 4.90597 8.2176 5.21259C7.866 5.52659 7.65052 5.96521 7.61687 6.43543L7.61369 6.47997V6.52463C7.61369 7.01011 7.80606 7.36822 7.95975 7.59344C8.02856 7.69427 8.10216 7.78606 8.14865 7.84403L8.15938 7.85741C8.20895 7.91923 8.24204 7.96049 8.27525 8.00566C8.3626 8.12448 8.48824 8.30768 8.52379 8.78174V10.2547C7.9091 9.24423 7.26066 7.89957 6.77276 6.46344L6.76527 6.4414L6.75697 6.41965C6.63532 6.10103 6.4402 5.63743 6.04941 5.28266C5.59288 4.86821 5.0529 4.75234 4.56182 4.75234H2.28187C1.78506 4.75234 1.18613 4.86857 0.739237 5.33999C0.299773 5.80358 0.25 6.35907 0.25 6.65442V6.78755L0.278039 6.91769C0.909544 9.84881 2.21076 12.5937 4.07946 14.9377C4.92668 16.2737 6.07468 17.3936 7.43213 18.2075C8.81124 19.0345 10.3671 19.5219 11.9715 19.6297L12.0133 19.6325H12.0553C12.7811 19.6325 13.5378 19.5699 14.1068 19.1907C14.8744 18.6792 14.9347 17.8936 14.9347 17.5021V16.3642C15.1317 16.5234 15.3761 16.7378 15.6753 17.0259C16.037 17.3879 16.325 17.7016 16.572 17.9754L16.7038 18.122L16.7046 18.1228C16.8964 18.3364 17.0852 18.5467 17.2571 18.7195C17.4732 18.9367 17.7396 19.1761 18.0745 19.3529C18.4371 19.5444 18.8177 19.631 19.222 19.631H21.5035C21.9841 19.631 22.6735 19.5173 23.1582 18.9554C23.6864 18.343 23.6461 17.5924 23.48 17.053L23.4501 16.956L23.405 16.865ZM17.6857 16.9706C17.4289 16.6859 17.1192 16.3484 16.7278 15.9571L16.7246 15.9539C15.3685 14.6464 14.7348 14.4186 14.2868 14.4186C14.0485 14.4186 13.7848 14.4454 13.6137 14.6585C13.5329 14.7591 13.4905 14.8805 13.4667 15.007C13.4429 15.1333 13.4347 15.2816 13.4347 15.4505V17.5021C13.4347 17.7569 13.3928 17.8639 13.275 17.9425C13.118 18.0471 12.7825 18.1319 12.0637 18.1325C10.6993 18.0395 9.37641 17.6244 8.20349 16.9211C7.02817 16.2164 6.03709 15.2425 5.31187 14.0797L5.30398 14.0671L5.29464 14.0554C3.55337 11.8881 2.34003 9.34571 1.7503 6.6291C1.7535 6.49814 1.78187 6.42045 1.82784 6.37195C1.87521 6.32198 1.98999 6.25234 2.28187 6.25234H4.56182C4.81544 6.25234 4.9467 6.30751 5.04117 6.39327C5.14827 6.4905 5.24116 6.65561 5.35401 6.95042C5.91362 8.5964 6.67038 10.1357 7.387 11.2675C7.74518 11.8332 8.09769 12.3041 8.41529 12.6368C8.57383 12.803 8.72932 12.9406 8.8777 13.0385C9.02132 13.1332 9.18414 13.2079 9.35158 13.2079C9.43994 13.2079 9.54328 13.1988 9.64279 13.1547C9.74983 13.1074 9.83291 13.0284 9.89158 12.9225C9.99536 12.7353 10.0238 12.458 10.0238 12.0947V8.73099L10.0233 8.7231C9.97146 7.90476 9.72439 7.44443 9.48381 7.11718C9.43108 7.04546 9.37909 6.98068 9.33359 6.92399L9.32113 6.90846C9.27117 6.84616 9.23142 6.79582 9.19876 6.74795C9.13891 6.66024 9.11571 6.59909 9.11381 6.53356C9.12162 6.45578 9.15828 6.38361 9.21675 6.33139C9.27744 6.27719 9.35686 6.24897 9.43816 6.25234H13.0326C13.2387 6.25234 13.3081 6.30262 13.343 6.34868C13.3923 6.4137 13.4347 6.54893 13.4347 6.83269V11.3613C13.4347 11.8992 13.6827 12.2634 14.0428 12.2634C14.4572 12.2634 14.7559 12.012 15.2783 11.4896L15.287 11.4809L15.2948 11.4713C16.4656 10.0436 17.4225 8.45298 18.1347 6.74943L18.1392 6.73666C18.1928 6.58613 18.2941 6.45726 18.4278 6.3697C18.5614 6.28215 18.72 6.24072 18.8794 6.25175L18.8881 6.25234H21.1782C21.4905 6.25234 21.5933 6.33183 21.6265 6.37884C21.6618 6.42885 21.6864 6.53604 21.6264 6.74625C20.8053 8.58266 19.7899 10.3258 18.598 11.9464L18.5905 11.9578C18.4748 12.1348 18.3479 12.3306 18.3295 12.5554C18.3098 12.7968 18.4143 13.0163 18.597 13.2515C18.7302 13.4484 19.0049 13.7173 19.2836 13.9901L19.3099 14.0158C19.6021 14.3018 19.9186 14.6116 20.1727 14.9116L20.1795 14.9195L20.1869 14.9269C20.9444 15.6825 21.5743 16.556 22.052 17.5132C22.1283 17.7738 22.0816 17.907 22.0223 17.9757C21.953 18.0561 21.7976 18.131 21.5035 18.131H19.222C19.0438 18.131 18.9063 18.0959 18.7749 18.0265C18.638 17.9542 18.4972 17.8392 18.3206 17.6617C18.1784 17.5187 18.023 17.3457 17.8334 17.1348C17.7864 17.0825 17.7373 17.0277 17.6857 16.9706Z"/>
+                                        </svg>
+                                    <span>VK</span>
+                                </a>
+                            @endif
+                            @if ($social->site_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button" href="{{ $social->site_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-globe" viewBox="0 0 16 16">
+                                        <path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm7.5-6.923c-.67.204-1.335.82-1.887 1.855A7.97 7.97 0 0 0 5.145 4H7.5V1.077zM4.09 4a9.267 9.267 0 0 1 .64-1.539 6.7 6.7 0 0 1 .597-.933A7.025 7.025 0 0 0 2.255 4H4.09zm-.582 3.5c.03-.877.138-1.718.312-2.5H1.674a6.958 6.958 0 0 0-.656 2.5h2.49zM4.847 5a12.5 12.5 0 0 0-.338 2.5H7.5V5H4.847zM8.5 5v2.5h2.99a12.495 12.495 0 0 0-.337-2.5H8.5zM4.51 8.5a12.5 12.5 0 0 0 .337 2.5H7.5V8.5H4.51zm3.99 0V11h2.653c.187-.765.306-1.608.338-2.5H8.5zM5.145 12c.138.386.295.744.468 1.068.552 1.035 1.218 1.65 1.887 1.855V12H5.145zm.182 2.472a6.696 6.696 0 0 1-.597-.933A9.268 9.268 0 0 1 4.09 12H2.255a7.024 7.024 0 0 0 3.072 2.472zM3.82 11a13.652 13.652 0 0 1-.312-2.5h-2.49c.062.89.291 1.733.656 2.5H3.82zm6.853 3.472A7.024 7.024 0 0 0 13.745 12H11.91a9.27 9.27 0 0 1-.64 1.539 6.688 6.688 0 0 1-.597.933zM8.5 12v2.923c.67-.204 1.335-.82 1.887-1.855.173-.324.33-.682.468-1.068H8.5zm3.68-1h2.146c.365-.767.594-1.61.656-2.5h-2.49a13.65 13.65 0 0 1-.312 2.5zm2.802-3.5a6.959 6.959 0 0 0-.656-2.5H12.18c.174.782.282 1.623.312 2.5h2.49zM11.27 2.461c.247.464.462.98.64 1.539h1.835a7.024 7.024 0 0 0-3.072-2.472c.218.284.418.598.597.933zM10.855 4a7.966 7.966 0 0 0-.468-1.068C9.835 1.897 9.17 1.282 8.5 1.077V4h2.355z"/>
+                                      </svg>
+                                      <span>Website</span>
+                                </a>
+                            @endif
+                            @if ($social->telegram_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button"
+                                    href="https://t.me/{{ $social->telegram_link }}" target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-telegram" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.287 5.906c-.778.324-2.334.994-4.666 2.01-.378.15-.577.298-.595.442-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294.26.006.549-.1.868-.32 2.179-1.471 3.304-2.214 3.374-2.23.05-.012.12-.026.166.016.047.041.042.12.037.141-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8.154 8.154 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629.093.06.183.125.27.187.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.426 1.426 0 0 0-.013-.315.337.337 0 0 0-.114-.217.526.526 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09z" />
+                                    </svg>
+                                    <span>Telegram</span>
+                                </a>
+                            @endif
+                            @if ($social->whatsapp_link !== null)
+                                <a class="btn btn-sm btn-dark" type="button"
+                                    href="https://api.whatsapp.com/send?phone={{ $social->whatsapp_link }}"
+                                    target="_blank">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
+                                        <path
+                                            d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+                                    </svg>
+                                    <span>Whatsapp</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
             @endif
+        @endif
 
-            @if ($appPermissao->home_location == true and ($locations->lat and $locations->lng == !null))
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h6>Nossa localização</h6>
-                                <p>
-                                <div class="row">
-                                    <div id="map"></div>
-                                    <ul id="geoData">
-                                    </ul>
-                                </div>
-                            </div>
+
+        @if ($appPermissao->home_location == true and ($locations->lat and $locations->lng == !null))
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        Nossa localização
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div id="map"></div>
+                            <ul id="geoData">
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <script>
-                    function initMap() {
-                        var myLatLng = {
-                            lat: {{ $locations->lat }},
-                            lng: {{ $locations->lng }}
-                        };
+            </div>
+    </div>
+    <script>
+        function initMap() {
+            var myLatLng = {
+                lat: {{ $locations->lat }},
+                lng: {{ $locations->lng }}
+            };
 
-                        var map = new google.maps.Map(document.getElementById('map'), {
-                            center: myLatLng,
-                            zoom: 17
-                        });
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: myLatLng,
+                zoom: 17
+            });
 
-                        var marker = new google.maps.Marker({
-                            position: myLatLng,
-                            map: map,
-                            title: 'Local!',
-                            draggable: false
-                        });
-                    }
-                </script>
-                <style type="text/css">
-                    #map {
-                        width: 100%;
-                        height: 400px;
-                    }
-
-                </style>
-                <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
-            @endif
-
-            <script src="{{ asset('js/coreui-chartjs.bundle.js') }}"></script>
-
-            <script type="text/javascript">
-                var pieChart = new Chart(document.getElementById('chats'), {
-                    type: 'pie',
-                    data: {
-                        labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
-                        datasets: [{
-                            data: [{{ $dizimoatual }}, {{ $ofertaatual }}, {{ $doacaoatual }},
-                                {{ $despesaatual }}
-                            ],
-                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c'],
-                            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c']
-                        }]
-                    },
-                    options: {
-                        responsive: true
-                    }
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Local!',
+                draggable: false
+            });
+        }
+    </script>
+    <style type="text/css">
+        #map {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initMap" async defer></script>
+    @endif
 
 
-                })
-            </script>
+    <script type="text/javascript">
+        var pieChart = new Chart(document.getElementById('chats'), {
+            type: 'pie',
+            data: {
+                labels: ['Dizimo', 'Oferta', 'Doação', 'Despesa'],
+                datasets: [{
+                    data: [{{ $dizimoatual }}, {{ $ofertaatual }}, {{ $doacaoatual }},
+                        {{ $despesaatual }}
+                    ],
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c'],
+                    hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#2eb85c']
+                }]
+            },
+            options: {
+                responsive: true
+            }
 
 
-        </div>
+        })
+    </script>
+
+
+    </div>
 
 </x-app-layout>

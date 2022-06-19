@@ -24,10 +24,6 @@
                                     <input type="text" class="form-control" name="twitter_link" placeholder="https://twitter.com" value="{{ $settings->twitter_link }}">
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label">Google Plus</label>
-                                    <input type="text" class="form-control" name="google_link" placeholder="https://google.com" value="{{ $settings->google_link }}">
-                                </div>
-                                <div class="form-group">
                                     <label class="control-label">Youtube</label>
                                     <input type="text" class="form-control" name="youtube_link" placeholder="https://youtube.com" value="{{ $settings->youtube_link }}">
                                 </div>
