@@ -1,20 +1,24 @@
 @if ($appPermissao->add_group == true)
-    @extends('layouts.base')
-    @section('content')
-        <div class="container-fluid">
-            <div class="fade-in">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header"><strong>Dados do grupo</strong> <small>Pessoa responsável</small>
-                            </div>
+<x-app-layout :assets="$assets ?? []">
+    <div>
+        <div class="row">
+            <div class="col-sm-12 col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <div class="header-title">
+                            <h4 class="card-title">Dados do Grupo</h4>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="card-body">
                             <div class="card-body">
                                 <form method="POST" action="{{ route('group.store') }}">
                                     @csrf
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label for="name">Nome</label>
+                                                <label class="form-label">Nome</label>
                                                 <input class="form-control" id='name_group' name='name_group' type="text"
                                                     placeholder="Nome do grupo">
                                             </div>
@@ -24,15 +28,15 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="ccnumber">Tipo</label>
+                                                <label class="form-label">Tipo</label>
                                                 <input class="form-control" id='tipo' name="tipo" type="text"
                                                     placeholder="Tipo de grupo">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="ccnumber">Ativo</label>
-                                                <select class="form-control" id='status_id' name="status_id">
+                                                <label class="form-label">Ativo</label>
+                                                <select class="form-select" id='status_id' name="status_id">
                                                     @foreach ($statuses as $status)
                                                         <option value="{{ $status->id }}">{{ $status->name }}</option>
                                                     @endforeach
@@ -43,10 +47,10 @@
                                     <!-- /.row-->
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <label for="ccyear">Responsável</label>
+                                            <label class="form-label">Responsável</label>
                                             <div class="form-group">
                                                 <!--<select class="itemName form-control" id="itemName" name="itemName"></select> -->
-                                                <select class="form-control" id="itemName" name="itemName">
+                                                <select class="form-select" id="itemName" name="itemName">
                                                     @foreach ($people as $people)
                                                         <option value="{{ $people->id }}">{{ $people->name }}
                                                         </option>
@@ -58,16 +62,15 @@
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <label for="ccmonth">Observação</label>
+                                            <label class="form-label">Observação</label>
                                             <textarea class="form-control" id='note' name="note" rows="3"
                                                 placeholder="Content.."></textarea>
                                         </div>
                                     </div>
                                     <br>
-                                    <button class="btn btn-success" type="submit" title="Salvar"><i
-                                            class="c-icon c-icon-sm cil-save"></i></button>
-                                    <a class="btn btn-primary" href="{{ route('group.index') }}" title="Voltar"><i
-                                            class="c-icon c-icon-sm cil-action-undo"></i></a>
+                                    <button class="btn btn-success" type="submit" title="Salvar">Salvar</button>
+                                    <a class="btn btn-primary" href="{{ route('group.index') }}" title="Voltar">
+                                    Voltar</a>
                                 </form>
                             </div>
                             <!-- /.row-->
@@ -111,10 +114,10 @@
                     $(this).val($(this).val().toUpperCase());
                 });
             </script>
-        @endsection
 
-        @section('javascript')
-        @endsection
+        </div>
+    </div>
+</x-app-layout>
     @else
         @include('errors.redirecionar')
 @endif
