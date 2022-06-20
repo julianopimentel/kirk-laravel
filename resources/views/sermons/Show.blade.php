@@ -28,13 +28,13 @@
 
                                 <strong>Tags:</strong>
 
-                                        @foreach ($video->snippet->tags as $group => $name)
-                                        <div class="chip mt-2 mb-0 waves-effect">
-                                            {{ $name }}
-                                        </div>
-                                    @endforeach
+                                @foreach ($video->snippet->tags as $group => $name)
+                                    <div class="chip mt-2 mb-0 waves-effect">
+                                        {{ $name }}
+                                    </div>
+                                @endforeach
 
-                  
+
                                 <br>
                                 <p>Autor: {{ $note->user->name }}
                                 </p>
@@ -96,7 +96,6 @@
             </div>
         </div>
         </div>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
             var ENDPOINT = "{{ url('/') }}";

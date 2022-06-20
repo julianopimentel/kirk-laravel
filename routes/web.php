@@ -97,10 +97,6 @@ Route::group(['middleware' => 'auth'], function () {
     //estudo
     Route::resource('sermons', 'SermonsController');
     Route::get('sermons/category/{id}', 'SermonsController@indexCategory')->name('sermons.indexCategory');
-    Route::get('category/sermons', 'SermonsController@showCategory')->name('sermons.showCategory');
-    Route::post('category/sermons', 'SermonsController@storeCategory')->name('sermons.storeCategory');
-    Route::patch('category/sermons/{id}', 'SermonsController@updateCategory')->name('sermons.updateCategory');
-    Route::delete('category/sermons/{id}', 'SermonsController@destroyCategory')->name('sermons.destroyCategory');
     Route::post('sermons/comment/{post}', 'SermonsController@storecomentario')->name('sermons.storecomentario');
     Route::get('/sermons/comment/{id}', [SermonsController::class, 'getArticles']);
 
@@ -246,14 +242,13 @@ Route::group(['middleware' => 'auth'], function () {
     
 });
 
-//App Details Page => 'Dashboard'], function() {
-Route::group(['prefix' => 'menu-style'], function() {
+//App Details Page => 'registrations'], function() {
+Route::group(['prefix' => 'registrations'], function() {
     //MenuStyle Page Routs
-    Route::get('horizontal', [HomeController1::class, 'horizontal'])->name('menu-style.horizontal');
-    Route::get('dual-horizontal', [HomeController1::class, 'dualhorizontal'])->name('menu-style.dualhorizontal');
-    Route::get('dual-compact', [HomeController1::class, 'dualcompact'])->name('menu-style.dualcompact');
-    Route::get('boxed', [HomeController1::class, 'boxed'])->name('menu-style.boxed');
-    Route::get('boxed-fancy', [HomeController1::class, 'boxedfancy'])->name('menu-style.boxedfancy');
+    Route::get('sermons', 'CadastrosController@showCategory')->name('sermons.showCategory');
+    Route::post('sermons', 'CadastrosController@storeCategory')->name('sermons.storeCategory');
+    Route::patch('sermons/{id}', 'CadastrosController@updateCategory')->name('sermons.updateCategory');
+    Route::delete('sermons/{id}', 'CadastrosController@destroyCategory')->name('sermons.destroyCategory');
 });
 
 //App Details Page => 'special-pages'], function() {

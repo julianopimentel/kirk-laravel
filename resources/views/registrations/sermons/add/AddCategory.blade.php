@@ -1,13 +1,11 @@
 <!-- Modal Store Transaction-->
 <div class="modal fade" id="storyCategory" tabindex="-1" role="dialog" aria-labelledby="storeTransactionTitle"
     aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Adicionar nova Categoria</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="{{ route('sermons.storeCategory') }}" method="post">
@@ -38,8 +36,10 @@
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
                     <button class="btn btn-success" type="submit" title="Adicionar"><i
                             class="c-icon c-icon-sm cil-plus"></i> Adicionar</button>
+                    </div>
             </div>
 
             </form>

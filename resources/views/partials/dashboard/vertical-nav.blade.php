@@ -1,13 +1,4 @@
 <ul class="navbar-nav iq-main-menu" id="sidebar">
-
-    <!-- Titulo do menu
-    <li class="nav-item static-item">
-        <a class="nav-link static-item disabled" href="#" tabindex="-1">
-            <span class="default-icon">Home</span>
-            <span class="mini-icon">-</span>
-        </a>
-    </li>
-    -->
     <li class="nav-item">
         <a class="nav-link {{ activeRoute(route('home.index')) }}" aria-current="page"
             href="{{ route('home.index') }}">
@@ -116,6 +107,44 @@
         </a>
     </li>
     @endif
+    <li class="nav-item">
+        <a class="nav-link" data-bs-toggle="collapse" href="#registrations-menu" role="button" aria-expanded="false" aria-controls="registrations-menu">
+            <i class="icon">
+                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path opacity="0.4" d="M10.0833 15.958H3.50777C2.67555 15.958 2 16.6217 2 17.4393C2 18.2559 2.67555 18.9207 3.50777 18.9207H10.0833C10.9155 18.9207 11.5911 18.2559 11.5911 17.4393C11.5911 16.6217 10.9155 15.958 10.0833 15.958Z" fill="currentColor"></path>
+                    <path opacity="0.4" d="M22.0001 6.37867C22.0001 5.56214 21.3246 4.89844 20.4934 4.89844H13.9179C13.0857 4.89844 12.4102 5.56214 12.4102 6.37867C12.4102 7.1963 13.0857 7.86 13.9179 7.86H20.4934C21.3246 7.86 22.0001 7.1963 22.0001 6.37867Z" fill="currentColor"></path>
+                    <path d="M8.87774 6.37856C8.87774 8.24523 7.33886 9.75821 5.43887 9.75821C3.53999 9.75821 2 8.24523 2 6.37856C2 4.51298 3.53999 3 5.43887 3C7.33886 3 8.87774 4.51298 8.87774 6.37856Z" fill="currentColor"></path>
+                    <path d="M21.9998 17.3992C21.9998 19.2648 20.4609 20.7777 18.5609 20.7777C16.6621 20.7777 15.1221 19.2648 15.1221 17.3992C15.1221 15.5325 16.6621 14.0195 18.5609 14.0195C20.4609 14.0195 21.9998 15.5325 21.9998 17.3992Z" fill="currentColor"></path>
+                </svg>
+            </i>
+            <span class="item-name">Cadastros</span>
+            <i class="right-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+            </i>
+        </a>
+        <ul class="sub-nav collapse" id="registrations-menu" data-bs-parent="#sidebar">
+            <li class="nav-item ">
+                <a class="nav-link {{activeRoute(route('sermons.showCategory'))}}" href="{{route('sermons.showCategory')}}">
+                  <i class="sidenav-mini-icon"> F </i>
+                  <span class="item-name">Contas Financeiras </span>
+                </a>
+            </li>
+            <li class=" nav-item ">
+                <a class="nav-link {{activeRoute(route('sermons.showCategory'))}}" href="{{route('sermons.showCategory')}}">
+                    <i class="sidenav-mini-icon"> CE </i>
+                    <span class="item-name">Categoria no Estudo</span>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link {{activeRoute(route('sermons.showCategory'))}}" href="{{route('sermons.showCategory')}}">
+                    <i class="sidenav-mini-icon"> C </i>
+                    <span class="item-name">Tipo de Cultos</span>
+                </a>
+            </li>
+        </ul>
+    </li>
     @if ($appPermissao->view_message == true)
     <li class="nav-item">
         <a class="nav-link {{ activeRoute(route('message.index')) }}" aria-current="page"
@@ -211,8 +240,8 @@
     @endif
     @if ($appPermissao->report_view == true)
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#sidebar-widget" role="button" aria-expanded="false"
-            aria-controls="sidebar-widget">
+        <a class="nav-link" data-bs-toggle="collapse" href="#report-menu" role="button" aria-expanded="false"
+            aria-controls="report-menu">
             <i class="icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
@@ -226,17 +255,10 @@
                 </svg>
             </i>
         </a>
-        <ul class="sub-nav collapse" id="sidebar-widget" data-bs-parent="#sidebar">
+        <ul class="sub-nav collapse" id="report-menu" data-bs-parent="#sidebar">
             <li class="nav-item">
                 <a class="nav-link {{ activeRoute(route('people.Financial')) }}"
                     href="{{ route('people.Financial') }}">
-                    <i class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
                     <i class="sidenav-mini-icon"> P </i>
                     <span class="item-name">{{ __('layout.report_people') }}</span>
                 </a>
@@ -245,13 +267,6 @@
             <li class="nav-item">
                 <a class="nav-link {{ activeRoute(route('location.index')) }}"
                     href="{{ route('location.index') }}">
-                    <i class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
                     <i class="sidenav-mini-icon"> L </i>
                     <span class="item-name">{{ __('layout.report_loc') }}</span>
                 </a>
@@ -260,13 +275,6 @@
             <li class="nav-item">
                 <a class="nav-link {{ activeRoute(route('group.Financial')) }}"
                     href="{{ route('group.Financial') }}">
-                    <i class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
                     <i class="sidenav-mini-icon"> G </i>
                     <span class="item-name">{{ __('layout.report_groups') }}</span>
                 </a>
@@ -274,13 +282,6 @@
             <li class="nav-item">
                 <a class="nav-link {{ activeRoute(route('financial.Financial')) }}"
                     href="{{ route('financial.Financial') }}">
-                    <i class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
-                            <g>
-                                <circle cx="12" cy="12" r="8" fill="currentColor"></circle>
-                            </g>
-                        </svg>
-                    </i>
                     <i class="sidenav-mini-icon"> F </i>
                     <span class="item-name">{{ __('layout.report_financial') }}</span>
                 </a>
