@@ -38,13 +38,13 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return view('admin.profileEditForm');
+        return view('auth.profileEditForm');
     }
 
     public function indexPassword()
     {
         $user = User::where('id', auth()->user()->id)->first();
-        return view('admin.profilePassword', compact('user'));
+        return view('auth.profilePassword', compact('user'));
     }
 
     /**
@@ -163,7 +163,7 @@ class ProfileController extends Controller
         //adicionar log
         $this->adicionar_log('1', 'U', $people);
         $request->session()->flash("success", "Salvo com sucesso");
-        //return redirect()->back();
-        dump($request);
+        return redirect()->back();
+        //dump($request);
     }
 }
