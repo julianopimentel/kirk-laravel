@@ -1,14 +1,16 @@
 @if ($appPermissao->view_prayer == true)
-@extends('layouts.base')
-@section('content')
-        <div class="container-fluid">
-          <div class="animated fadeIn">
-            <div class="row">
-              <div class="col-sm-12 col-md-10 col-lg-8 col-xl-12">
-                <div class="card">
-                    <div class="card-header">
-                      <h4>Note: {{ $prayer->title }}</h4></div>
+<x-app-layout :assets="$assets ?? []">
+  <div>
+      <div class="row">
+          <div class="col-sm-12 col-lg-12">
+              <div class="card">
+                  <div class="card-header d-flex justify-content-between">
+                      <div class="header-title">
+                          <h4 class="card-title">Pedidos de Oração</h4>
+                      </div>
+                    </div>
                     <div class="card-body">
+                      <h4>Note: {{ $prayer->title }}</h4>
                         <br>
                         <h4>Author:</h4>
                         <p> {{ $prayer->user->name }}</p>
@@ -34,12 +36,7 @@
           </div>
         </div>
 
-@endsection
-
-
-@section('javascript')
-
-@endsection
+</x-app-layout>
 @else
 @include('errors.redirecionar')
 @endif
