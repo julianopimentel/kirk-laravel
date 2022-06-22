@@ -1,6 +1,5 @@
 @if ($appPermissao->report_view and $appPermissao->view_group == true)
-@extends('layouts.base')
-@section('content')
+<x-app-layout :assets="$assets ?? []">
 <div class="container-fluid">
     <div class="fade-in">
 
@@ -75,11 +74,7 @@
 
         </div>
     </div>
-@endsection
-
-@section('javascript')
-
-@endsection
+</x-app-layout>
 @else
 @include('errors.redirecionar')
 @endif

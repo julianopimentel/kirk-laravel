@@ -1,9 +1,6 @@
 @if ($appPermissao->report_view and $appPermissao->view_financial == true)
-@extends('layouts.base')
-@section('content')
+<x-app-layout :assets="$assets ?? []">
 
-    <div class="container-fluid">
-        <div class="fade-in">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="card">
@@ -42,7 +39,7 @@
                                         <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                             Movimentação
                                             <div class="inner">
-                                                <select name="type" class="form-control">
+                                                <select name="type" class="form-select">
                                                     <option value="">Selecionar</option>
                                                     @foreach ($types as $key => $type)
                                                         <option value="{{ $key }}">{{ $type }}</option>
@@ -53,7 +50,7 @@
                                         <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                             Tipo
                                             <div class="inner">
-                                                <select class="form-control" id="tipo" name="tipo">
+                                                <select class="form-select" id="tipo" name="tipo">
                                                     <option value="">Selecionar</option>
                                                     @foreach ($statusfinan as $statusfinan)
                                                         <option value="{{ $statusfinan->id }}">
@@ -65,7 +62,7 @@
                                         <div class="col-sm-12 col-md-3 col-lg-3 col-xl-2">
                                             Pagamento
                                             <div class="inner">
-                                                <select class="form-control" id="pag" name="pag">
+                                                <select class="form-select" id="pag" name="pag">
                                                     <option value="">Selecionar</option>
                                                     @foreach ($statuspag as $statuspags)
                                                         <option value="{{ $statuspags->id }}">
@@ -76,15 +73,13 @@
                                         </div>
                                         <div class="col-sm-2 col-md-2 col-lg-2 col-xl-1">
                                             <div class="box-header">
-                                                <button type="submit" class="btn btn-primary" title="Pesquisar"><i
-                                                    class="c-icon c-icon-sm cil-zoom"></i></button>
+                                                <button type="submit" class="btn btn-primary" title="Pesquisar">Pesquisar</button>
                                             </div>
                                         </div>
                                         <div class="col-sm-2 col-md-2 col-lg-2 col-xl-1">
                                             <div class="box-header">
                                                 <a href="{{ url('/report/financial') }}"
-                                                    class="btn btn-danger" title="Limpar"><i
-                                                    class="c-icon c-icon-sm cil-trash"></i></a>
+                                                    class="btn btn-danger" title="Limpar">Limpar</a>
                                             </div>
                                         </div>
                                     </div>
@@ -92,17 +87,17 @@
                             </form>
                             <div class="box-body">
                                 @if (!$historics->isEmpty())
-                                    <table class="table table-responsive">
+                                    <table class="table table-responsive table-sm">
                                         <thead>
                                             <tr>
-                                                <th style="width: 35px">Recibo</th>
-                                                <th style="width: 120px">Movimentação</th>
+                                                <th>N</th>
+                                                <th>Mov.</th>
                                                 <th>Valor</th>
                                                 <th>Tipo</th>
-                                                <th>Forma de Pagamento</th>
+                                                <th>F de Pag.</th>
                                                 <th>Pessoa</th>
                                                 <th>Observação</th>
-                                                <th style="width: 80px">Data</th>
+                                                <th>Data</th>
                                                 <th>Ação</th>
                                             </tr>
                                         </thead>
@@ -149,10 +144,17 @@
                                                         @endif
                                                     </td>
                                                     <td>{{ $historic->date }}</td>
-                                                    <td width="1%">
+                                                    <td>
                                                         @if ($appPermissao->view_financial == true)
-                                                            <a href="{{ route('transaction.show' , $historic->id) }}"><i
-                                                                    class="c-icon c-icon-sm cil-notes text-primary"></i></a>
+                                                            <a href="{{ route('transaction.show' , $historic->id) }}"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                                height="16" fill="currentColor" class="bi bi-eye"
+                                                                viewBox="0 0 16 16">
+                                                                <path
+                                                                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                                                <path
+                                                                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                                            </svg>
+                                                        </a>
                                                         @endif
                                                     </td>
                                                 </tr>
@@ -186,12 +188,8 @@
                     <!-- /.row-->
                 </div>
             </div>
-
-        @endsection
-
-        @section('javascript')
-
-        @endsection
+    </div>
+</x-app-layout>
         @else
         @include('errors.redirecionar')
         @endif
