@@ -44,10 +44,10 @@
                                     </div>
                                     <div class="card-body">
                                         <h5 class="card-title"><a
-                                                href="recado/{{ $note->id }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
+                                            href="{{ route('sermons.show', $note->id) }}">{{ mb_strimwidth($note->title, 0, 45, '...') }}</a>
                                         </h5>
                                         <p class="card-text">@php
-                                            echo mb_strimwidth($note->content, 0, 120, '...');
+                                            echo mb_strimwidth($note->content, 0, 145, '...');
                                         @endphp</p>
                                     </div>
                                     <div class="card-footer text-muted">

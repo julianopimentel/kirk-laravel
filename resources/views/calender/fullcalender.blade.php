@@ -8,7 +8,7 @@
                         <div class="col-lg-12">
                             <div class="card  ">
                                 <div class="card-body">
-                                    <div id="calendar" class="calendar-s"></div>
+                                    <div id="calendar" class="calendar"></div>
                                 </div>
                             </div>
                         </div>
@@ -23,9 +23,9 @@
                 <div class="card-header"><strong>Histórico</strong> <small> últimos agendamentos</small>
                     <div class="col-2">
                         @if ($appPermissao->add_calendar == true)
-                            <button class="btn btn-primary" type="submit" data-toggle="modal"
-                                data-target="#storeTransactionEntrada">Adicionar</button>
-                            @include('calender.create')
+                            <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
+                                data-bs-target="#storeTransactionEntrada">Adicionar</button>
+                            
                         @endif
                     </div>
                 </div>
@@ -52,8 +52,7 @@
                                                 <td>{{ $evento->end }}</td>
                                                 <td width="1%">
                                                     @if ($appPermissao->edit_calendar == true)
-                                                        <a href="{{ route('calender.edit', $evento->id) }}"><i
-                                                                class="c-icon c-icon-lg cil-calendar-check text-primary"></i></a>
+                                                        <a href="{{ route('calender.edit', $evento->id) }}">Editar</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -69,6 +68,10 @@
             </div>
         </div>
         </div>
+        <!-- Calendar -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
 
         <script>
             $(document).ready(function() {
@@ -83,7 +86,7 @@
 
                 var calendar = $('#calendar').fullCalendar({
                     editable: false,
-                    events: SITEURL + "/calender",
+                    events: SITEURL + "/calendar",
                     displayEventTime: false,
                     eventRender: function(event, element, view) {
                         if (event.allDay === 'true') {
@@ -146,7 +149,6 @@
                 });
 
             });
-
             function displayMessage(message) {
                 toastr.success(message, 'Event');
             }

@@ -145,7 +145,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('import',        'BackupController@import')->name('import');
 
     //calendar
-    Route::get('calender', [FullCalenderController::class, 'index'])->name('calender.index');
+    Route::get('calendar', [FullCalenderController::class, 'index'])->name('calender.index');
     Route::post('fullcalenderAjax', [FullCalenderController::class, 'ajax']);
     Route::get('calender/create', 'FullCalenderController@create')->name('calender.create');
     Route::post('calender', 'FullCalenderController@store')->name('calender.store');
@@ -251,29 +251,8 @@ Route::group(['prefix' => 'registrations'], function() {
     Route::delete('sermons/{id}', 'CadastrosController@destroyCategory')->name('sermons.destroyCategory');
 });
 
-//App Details Page => 'special-pages'], function() {
-Route::group(['prefix' => 'special-pages'], function() {
-    //Example Page Routs
-    Route::get('billing', [HomeController1::class, 'billing'])->name('special-pages.billing');
-    Route::get('calender', [HomeController1::class, 'calender'])->name('special-pages.calender');
-    Route::get('kanban', [HomeController1::class, 'kanban'])->name('special-pages.kanban');
-    Route::get('pricing', [HomeController1::class, 'pricing'])->name('special-pages.pricing');
-    Route::get('rtl-support', [HomeController1::class, 'rtlsupport'])->name('special-pages.rtlsupport');
-    Route::get('timeline', [HomeController1::class, 'timeline'])->name('special-pages.timeline');
-});
 
-//Widget Routs
-Route::group(['prefix' => 'widget'], function() {
-    Route::get('widget-basic', [HomeController1::class, 'widgetbasic'])->name('widget.widgetbasic');
-    Route::get('widget-chart', [HomeController1::class, 'widgetchart'])->name('widget.widgetchart');
-    Route::get('widget-card', [HomeController1::class, 'widgetcard'])->name('widget.widgetcard');
-});
 
-//Maps Routs
-Route::group(['prefix' => 'maps'], function() {
-    Route::get('google', [HomeController1::class, 'google'])->name('maps.google');
-    Route::get('vector', [HomeController1::class, 'vector'])->name('maps.vector');
-});
 
 //Auth pages Routs
 Route::group(['prefix' => 'auth'], function() {
@@ -307,13 +286,6 @@ Route::group(['prefix' => 'table'], function() {
     Route::get('datatable', [HomeController1::class, 'datatable'])->name('table.datatable');
 });
 
-//Icons Page Routs
-Route::group(['prefix' => 'icons'], function() {
-    Route::get('solid', [HomeController1::class, 'solid'])->name('icons.solid');
-    Route::get('outline', [HomeController1::class, 'outline'])->name('icons.outline');
-    Route::get('dualtone', [HomeController1::class, 'dualtone'])->name('icons.dualtone');
-    Route::get('colored', [HomeController1::class, 'colored'])->name('icons.colored');
-});
 //Extra Page Routs
 Route::get('privacy-policy', [HomeController1::class, 'privacypolicy'])->name('pages.privacy-policy');
 Route::get('terms-of-use', [HomeController1::class, 'termsofuse'])->name('pages.term-of-use');

@@ -1,10 +1,8 @@
 @if ($appPermissao->view_media == true)
-    @extends('layouts.base')
+    <x-app-layout :assets="$assets ?? []">
 
-    @section('css')
         <link href="{{ asset('css/cropper.css') }}" rel="stylesheet">
-    @endsection
-    @section('content')
+
         <div class="container-fluid">
             <div class="fade-in">
                 <div class="row">
@@ -153,8 +151,8 @@
                                                                 </button>
 
                                                                 <!--
-                                                <a 
-                                                    class="btn btn-danger" 
+                                                <a
+                                                    class="btn btn-danger"
                                                     href="{{ route('media.file.delete', ['id' => $media->id, 'thisFolder' => $thisFolder]) }}"
                                                 >
                                                     Delete
@@ -176,13 +174,16 @@
                                                 <div class="card-body">
                                                     <form method="post" action="{{ route('media.folder.move') }}">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-move-folder-id">
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-move-folder-id">
                                                         <table class="table table-striped table-bordered">
                                                             @if ($parentFolder !== 'disable')
                                                                 <tr>
                                                                     <td>
-                                                                        <input type="radio" name="folder" value="moveUp">
+                                                                        <input type="radio" name="folder"
+                                                                            value="moveUp">
                                                                     </td>
                                                                     <td>
                                                                         Subir
@@ -202,7 +203,8 @@
                                                                 </tr>
                                                             @endforeach
                                                         </table>
-                                                        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary mt-3">Salvar</button>
                                                         <button type="button" class="btn btn-primary mt-3"
                                                             id="file-move-folder-cancel">Cancelar</button>
                                                     </form>
@@ -216,13 +218,16 @@
                                                 <div class="card-body">
                                                     <form method="post" action="{{ route('media.file.move') }}">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-move-file-id">
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-move-file-id">
                                                         <table class="table table-striped table-bordered">
                                                             @if ($parentFolder !== 'disable')
                                                                 <tr>
                                                                     <td>
-                                                                        <input type="radio" name="folder" value="moveUp">
+                                                                        <input type="radio" name="folder"
+                                                                            value="moveUp">
                                                                     </td>
                                                                     <td>
                                                                         Subir
@@ -241,7 +246,8 @@
                                                                 </tr>
                                                             @endforeach
                                                         </table>
-                                                        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary mt-3">Salvar</button>
                                                         <button type="button" class="btn btn-primary mt-3"
                                                             id="file-move-file-cancel">Cancelar</button>
                                                     </form>
@@ -255,11 +261,14 @@
                                                 <div class="card-body">
                                                     <form method="post" action="{{ route('media.file.update') }}">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-rename-file-id">
-                                                        <input type="text" name="name" id="file-rename-file-name"
-                                                            class="form-control">
-                                                        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-rename-file-id">
+                                                        <input type="text" name="name"
+                                                            id="file-rename-file-name" class="form-control">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mt-3">Salvar</button>
                                                         <button type="button" class="btn btn-primary mt-3"
                                                             id="file-rename-file-cancel">Cancelar</button>
                                                     </form>
@@ -270,83 +279,87 @@
                                                     <h4>Renomear Pasta</h4>
                                                 </div>
                                                 <div class="card-body">
-                                                    <form method="post" action="{{ route('media.folder.update') }}">
+                                                    <form method="post"
+                                                        action="{{ route('media.folder.update') }}">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-rename-folder-id">
-                                                        <input type="text" name="name" id="file-rename-folder-name"
-                                                            class="form-control">
-                                                        <button type="submit" class="btn btn-primary mt-3">Salvar</button>
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-rename-folder-id">
+                                                        <input type="text" name="name"
+                                                            id="file-rename-folder-name" class="form-control">
+                                                        <button type="submit"
+                                                            class="btn btn-primary mt-3">Salvar</button>
                                                         <button type="button" class="btn btn-primary mt-3"
                                                             id="file-rename-folder-cancel">Cancelar</button>
                                                     </form>
                                                 </div>
                                             </div>
-                                        <div class="card border-primary" id="file-info-card">
-                                            <div class="card-header">
-                                                <h4>File info</h4>
+                                            <div class="card border-primary" id="file-info-card">
+                                                <div class="card-header">
+                                                    <h4>File info</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                    <table class="table table-striped table-bordered">
+                                                        <tr>
+                                                            <td>
+                                                                Nome
+                                                            </td>
+                                                            <td id="file-div-name">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Nome Real
+                                                            </td>
+                                                            <td id="file-div-real-name">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                URL
+                                                            </td>
+                                                            <td id="file-div-url">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                mime type
+                                                            </td>
+                                                            <td id="file-div-mime-type">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Tamanho
+                                                            </td>
+                                                            <td id="file-div-size">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Criado em
+                                                            </td>
+                                                            <td id="file-div-created-at">
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Atualizado em
+                                                            </td>
+                                                            <td id="file-div-updated-at">
+
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
                                             </div>
-                                            <div class="card-body">
-                                                <table class="table table-striped table-bordered">
-                                                    <tr>
-                                                        <td>
-                                                            Nome
-                                                        </td>
-                                                        <td id="file-div-name">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Nome Real
-                                                        </td>
-                                                        <td id="file-div-real-name">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            URL
-                                                        </td>
-                                                        <td id="file-div-url">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            mime type
-                                                        </td>
-                                                        <td id="file-div-mime-type">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Tamanho
-                                                        </td>
-                                                        <td id="file-div-size">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Criado em
-                                                        </td>
-                                                        <td id="file-div-created-at">
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            Atualizado em
-                                                        </td>
-                                                        <td id="file-div-updated-at">
-
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
                                         @endif
                                     </div>
 
@@ -365,11 +378,14 @@
                                                 <div class="modal-footer">
                                                     <form action="{{ route('media.file.delete') }}" method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-delete-file-id">
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-delete-file-id">
                                                         <button class="btn btn-secondary" type="button"
                                                             data-dismiss="modal">Cancelar</button>
-                                                        <button class="btn btn-primary" type="submit">Deletar</button>
+                                                        <button class="btn btn-primary"
+                                                            type="submit">Deletar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -388,17 +404,22 @@
                                                         aria-label="Close"><span aria-hidden="true">×</span></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <p>Se você excluir uma pasta, todas as subpastas e arquivos também serão
+                                                    <p>Se você excluir uma pasta, todas as subpastas e arquivos também
+                                                        serão
                                                         excluídos</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <form action="{{ route('media.folder.delete') }}" method="POST">
+                                                    <form action="{{ route('media.folder.delete') }}"
+                                                        method="POST">
                                                         @csrf
-                                                        <input type="hidden" name="thisFolder" value="{{ $thisFolder }}">
-                                                        <input type="hidden" name="id" value="" id="file-delete-folder-id">
+                                                        <input type="hidden" name="thisFolder"
+                                                            value="{{ $thisFolder }}">
+                                                        <input type="hidden" name="id" value=""
+                                                            id="file-delete-folder-id">
                                                         <button class="btn btn-secondary" type="button"
                                                             data-dismiss="modal">Cancelar</button>
-                                                        <button class="btn btn-primary" type="submit">Deletar</button>
+                                                        <button class="btn btn-primary"
+                                                            type="submit">Deletar</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -450,19 +471,14 @@
                 max-width: 300px;
                 max-height: 300px;
             }
-
         </style>
 
-
-    @section('javascript')
         <script src="{{ asset('js/axios.min.js') }}"></script>
         <script src="{{ asset('js/cropper.js') }}"></script>
         <script src="{{ asset('js/media.js') }}"></script>
         <script src="{{ asset('js/media-cropp.js') }}"></script>
 
-    @endsection
-@endsection
-
+    </x-app-layout>
 @else
-@include('errors.redirecionar')
+    @include('errors.redirecionar')
 @endif

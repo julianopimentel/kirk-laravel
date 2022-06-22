@@ -29,6 +29,8 @@ class FullCalenderController extends Controller
     public function index(Request $request)
     {
         $this->get_tenant();
+        $assets = ['calender'];
+
         if ($request->ajax()) {
             //consulta em json
             $data = Event::whereDate('start', '>=', $request->start)
@@ -39,7 +41,7 @@ class FullCalenderController extends Controller
         }
         //consulta de eventos
         $eventos = Event::orderBy('start', 'desc')->paginate(9);
-        return view('calender.fullcalender', compact('eventos'));
+        return view('calender.fullcalender', compact('eventos', 'assets'));
     }
 
     /**

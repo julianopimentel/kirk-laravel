@@ -1,6 +1,5 @@
 @if ($appPermissao->view_sermons == true)
-    @extends('layouts.base')
-    @section('content')
+<x-app-layout :assets="$assets ?? []">
         <div class="container-fluid">
             <div class="animated fadeIn">
                 <div class="row">
@@ -40,22 +39,21 @@
                                 </p>
 
                                 Publica em {{ datarecente($note->created_at) }}
-
+                                
                                 <br> <br> <br>
-                                <div class="form-group row">
-                                    <a class="btn btn-primary" href="{{ route('sermons.index') }}" title="Voltar"><i
-                                            class="c-icon c-icon-sm cil-action-undo"></i> Voltar</a> &nbsp;
+                                <div class="bd-example">
+                                    <a class="btn btn-primary" href="{{ route('sermons.index') }}" title="Voltar">Voltar</a> &nbsp;
                                     @if ($appPermissao->edit_sermons == true)
                                         <a class="btn btn-success" href="{{ route('sermons.edit', $note->id) }}"
-                                            type="submit" title="Editar"><i class="c-icon c-icon-sm cil-pencil"></i></a>
+                                            type="submit" title="Editar">Editar</a>
                                     @endif
+                                    &nbsp;
                                     @if ($appPermissao->delete_sermons == true)
                                         <form action="{{ route('sermons.destroy', $note->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <a class="btn btn-danger show_confirm" type="submit" title="Excluir"
-                                                data-toggle="tooltip" title='Delete'><i
-                                                    class="c-icon c-icon-sm cil-trash"></i></a>
+                                                data-toggle="tooltip" title='Delete'>Deletar</a>
                                         </form>
                                     @endif
                                 </div>
@@ -131,9 +129,7 @@
                     });
             }
         </script>
-    @endsection
-    @section('javascript')
-    @endsection
+</x-app-layout>
 @else
     @include('errors.redirecionar')
 @endif

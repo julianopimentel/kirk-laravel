@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\People;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
@@ -19,11 +19,11 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->editColumn('userProfile.country', function($query) {
-                return $query->userProfile->country ?? '-';
+            ->editColumn('name', function($query) {
+                return $query->name ?? '-';
             })
-            ->editColumn('userProfile.company_name', function($query) {
-                return $query->userProfile->company_name ?? '-';
+            ->editColumn('role', function($query) {
+                return $query->role ?? '-';
             })
             ->editColumn('status', function($query) {
                 $status = 'warning';
@@ -44,10 +44,10 @@ class UsersDataTable extends DataTable
                 return date('Y/m/d',strtotime($query->created_at));
             })
             ->filterColumn('full_name', function($query, $keyword) {
-                $sql = "CONCAT(users.first_name,' ',users.last_name)  like ?";
+                $sql = "CONCAT(people.name,' ',people.name)  like ?";
                 return $query->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->filterColumn('userProfile.company_name', function($query, $keyword) {
+            ->filterColumn('userProfile.role', function($query, $keyword) {
                 return $query->orWhereHas('userProfile', function($q) use($keyword) {
                     $q->where('company_name', 'like', "%{$keyword}%");
                 });
@@ -69,7 +69,7 @@ class UsersDataTable extends DataTable
      */
     public function query()
     {
-        $model = User::query()->with('userProfile');
+        $model = People::query()->with('userProfile');
         return $this->applyScopes($model);
     }
 
