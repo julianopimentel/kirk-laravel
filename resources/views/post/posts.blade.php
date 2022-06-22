@@ -1,7 +1,5 @@
-@extends('layouts.baseminimal')
+<x-app-layout layout="boxedfancy" :assets="$assets ?? []">
 
-
-@section('content')
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -99,4 +97,4 @@
             });
         });
     </script>
-@endsection
+</x-app-layout>
