@@ -1,6 +1,5 @@
-@extends('layouts.base')
+<x-app-layout :assets="$assets ?? []">
 
-@section('content')
     <div class="container-fluid">
         <div class="animated fadeIn">
             <div class="row">
@@ -23,8 +22,7 @@
                                 <form action="{{ route('timeline.destroy', $post->id) }}" method="POST">
                                     @method('DELETE')
                                     @csrf
-                                    <a class="show_confirm" data-toggle="tooltip" title='Delete'><i
-                                            class="c-icon c-icon-sm cil-trash text-danger"></i>
+                                    <a class="show_confirm" data-toggle="tooltip" title='Delete'>Deletar</i>
                                     </a>
                                 </form>
                             </div>
@@ -40,7 +38,7 @@
                                 <div class="form-group row">
                                     <textarea class="form-control" id='comment' name="comment" rows="2" placeholder="Mensagem.."></textarea>
                                 </div>
-                                <button class="btn btn-sm btn-dark" type="submit">Comentar</button>
+                                <button class="btn btn-dark" type="submit">Comentar</button>
                         </div>
                         </form>
                     </div>
@@ -96,6 +94,4 @@
     </div>
     </div>
     </div>
-@endsection
-@section('javascript')
-@endsection
+</x-app-layout>
