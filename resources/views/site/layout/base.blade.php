@@ -93,7 +93,6 @@
     ============================================= -->
     <header id="home">
         @include('site.layout.menu')
-        @include("layouts.shared.flash-message")
         @yield('content')
 
     </header>

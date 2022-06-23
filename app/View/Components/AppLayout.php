@@ -41,6 +41,9 @@ class AppLayout extends Component
             case 'simple':
                 return view('layouts.dashboard.simple');
             break;
+            case 'site':
+                return view('layouts.dashboard.simple');
+            break;
             default:
                 return view('layouts.dashboard.dashboard');
             break;
