@@ -7,7 +7,11 @@
                     <div class="border-bottom">
                         <div class="d-flex align-items-center mb-3 gap-3">
                             <img class="img-fluid rounded-circle avatar-60 p-1 border border-2 border-primary border-dotted"
-                                src="https://templates.iqonic.design/product/hope-ui/pro/laravel/public/modules/social-app/images/avatar/22.png"
+                            @if (empty(auth()->user()->profile_image))
+                            src="{{ asset('images/avatars/01.png') }}"
+                        @else
+                        src="{{ stream_get_contents(Auth()->user()->image) }}" 
+                        @endif
                                 alt="" loading="lazy" />
                             <form class="w-100" data-bs-toggle="modal" data-bs-target="#post-modal"
                                 action="javascript:void(0);">

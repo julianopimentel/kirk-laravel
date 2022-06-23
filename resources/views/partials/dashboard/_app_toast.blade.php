@@ -1,28 +1,64 @@
+<script>
+    @if ($message = Session::get('success'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.success("{{ __($message) }}");
+    @endif
+
+    @if ($message = Session::get('error'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.error("{{ __($message) }}");
+    @endif
+
+    @if ($message = Session::get('warning'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.warning("{{ __($message) }}");
+    @endif
+
+    @if ($message = Session::get('info'))
+        toastr.options = {
+            "closeButton": true,
+            "progressBar": true
+        }
+        toastr.info("{{ __($message) }}");
+    @endif
+
+    @if ($errors->any())
+
+        @foreach ($errors->all() as $error)
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true
+            }
+            toastr.error("{{ $error }}");
+        @endforeach
+    @endif
+</script>
+
 <script type="text/javascript">
-    {{-- Success Message --}}
-    @if (Session::has('success'))
-    Swal.fire({
-    icon: 'success',
-    title: 'Salvo',
-    text: '{{ Session::get("success") }}',
-    confirmButtonColor: "#3a57e8"
+    $('.show_confirm').click(function(event) {
+        var form = $(this).closest("form");
+        var name = $(this).data("name");
+        event.preventDefault();
+        swal({
+                title: `Tem certeza de que deseja excluir este registro?`,
+                text: "Se você excluir isso, ele desaparecerá para sempre.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    form.submit();
+                }
+            });
     });
-    @endif
-    {{-- Errors Message --}}
-    @if (Session::has('error'))
-    Swal.fire({
-    icon: 'error',
-    title: 'Opps!!!',
-    text: '{{Session::get("error")}}',
-    confirmButtonColor: "#3a57e8"
-    });
-    @endif
-    @if(Session::has('errors') || ( isset($errors) && is_array($errors) && $errors->any()))
-    Swal.fire({
-    icon: 'error',
-    title: 'Opps!!!',
-    text: '{{Session::get("errors")->first() }}',
-    confirmButtonColor: "#3a57e8"
-    });
-    @endif
 </script>

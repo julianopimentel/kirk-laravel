@@ -1,22 +1,25 @@
 @if ($appPermissao->view_calendar == true)
-    <x-app-layout :assets="$assets ?? []">
-        <div>
-            <x-header-breadcrumb class="btn btn-primary" />
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card  ">
-                                <div class="card-body">
-                                    <div id="calendar" class="calendar"></div>
-                                </div>
+<x-app-layout :assets="$assets ?? []">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+    <div>
+        <x-header-breadcrumb class="btn btn-primary"/>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card  ">
+                            <div class="card-body">
+                                <div id='full_calendar_events'></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+    </div>
 
         <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5">
             <div class="card">
@@ -25,6 +28,7 @@
                         @if ($appPermissao->add_calendar == true)
                             <button class="btn btn-primary" type="submit" data-bs-toggle="modal"
                                 data-bs-target="#storeTransactionEntrada">Adicionar</button>
+                                @include('calender.create')
                             
                         @endif
                     </div>
@@ -69,22 +73,24 @@
         </div>
         </div>
         <!-- Calendar -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    {{-- Scripts --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.2/fullcalendar.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+        
+
+        
 
         <script>
-            $(document).ready(function() {
-
-                var SITEURL = "{{ url('/') }}";
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-                var calendar = $('#calendar').fullCalendar({
+        $(document).ready(function () {
+            var SITEURL = "{{ url('/') }}";
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var calendar = $('#full_calendar_events').fullCalendar({
                     editable: false,
                     events: SITEURL + "/calendar",
                     displayEventTime: false,

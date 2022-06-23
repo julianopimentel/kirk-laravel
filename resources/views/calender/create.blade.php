@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="form-group col-sm-12">
                             <div class="form-group">
-                                <label>Title</label>
+                                <label class="form-label">Title</label>
                                 <input class="form-control" type="text" placeholder="{{ __('Title') }}" name="title"
                                     required autofocus>
                             </div>
@@ -25,15 +25,8 @@
                     <div class="row">
                         <div class="form-group col-sm-6">
                             <div class="form-group">
-                                <label for="ccnumber">Data de Inicio</label>
+                                <label class="form-label">Data de Inicio</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text">
-                                            <svg class="c-icon">
-                                                <use
-                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-calendar">
-                                                </use>
-                                            </svg>
-                                    </div>
                                     <input class="form-control" id="start" name="start" type="date" placeholder="date"
                                         required>
                                 </div>
@@ -41,15 +34,8 @@
                         </div>
                         <div class="form-group col-sm-6">
                             <div class="form-group">
-                                <label for="ccnumber">Data de Fim</label>
+                                <label class="form-label">Data de Fim</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend"><span class="input-group-text">
-                                            <svg class="c-icon">
-                                                <use
-                                                    xlink:href="/assets/icons/coreui/free-symbol-defs.svg#cui-calendar">
-                                                </use>
-                                            </svg>
-                                    </div>
                                     <input class="form-control" id="end" name="end" type="date" placeholder="date"
                                         required>
                                 </div>
@@ -59,7 +45,7 @@
                     <div class="row">
                         <div class="form-group col-sm-3">
                             <div class="form-group">
-                                <label>
+                                <label class="form-label">
                                     Hora Inicio</label>
                                     <input class="form-control" type="time" id="hora_inicio" name="hora_inicio"
                                     pattern="[0-9]{2}:[0-9]{2}" required>
@@ -67,7 +53,7 @@
                         </div>
                         <div class="form-group col-sm-3">
                             <div class="form-group">
-                                <label>
+                                <label class="form-label">
                                     Hora Fim</label>
                                     <input class="form-control" type="time" id="hora_fim" name="hora_fim"
                                     pattern="[0-9]{2}:[0-9]{2}" required>
@@ -75,7 +61,7 @@
                         </div>
                         <div class="form-group col-sm-2">
                             <div class="form-group">
-                                <label>
+                                <label class="form-label">
                                     Ativo</label>
                                 <label class="c-switch c-switch-label c-switch-pill c-switch-primary c-switch-lg">
                                     <input class="c-switch-input" name="status" type="checkbox" checked><span

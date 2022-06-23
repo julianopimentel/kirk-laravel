@@ -24,6 +24,9 @@
 <link rel="stylesheet" href="{{ asset('css/intlTelInput.css?1638200991544') }}" rel="stylesheet">
 <link rel="stylesheet" href="{{ asset('css/isValidNumber.css?1638200991544') }}" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
+
 <style>
     th.hide-search input {
         display: none;
