@@ -1,5 +1,4 @@
 <x-app-layout :assets="$assets ?? []">
-
     <div>
         <div class="row">
             @if ($precadastro >= 1 and $appPermissao->edit_precadastro == true)

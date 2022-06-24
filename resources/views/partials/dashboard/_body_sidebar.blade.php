@@ -1,4 +1,4 @@
-<aside class="sidebar sidebar-default navs-rounded-all" id="first-tour" data-toggle="main-sidebar" data-sidebar="responsive">
+<aside class="sidebar sidebar-default navs-rounded-all sidebar-dark" id="first-tour" data-toggle="main-sidebar" data-sidebar="responsive">
     <div class="sidebar-header d-flex align-items-center justify-content-start">
         <a href="{{ route('dashboard') }}" class="navbar-brand">
             <svg width="32px" height="32px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"

@@ -8,7 +8,9 @@
         @include('partials.dashboard.sub-header')
     </div>
 
-    <div class="conatiner-fluid content-inner">
+    <div class="conatiner-fluid content-inner mt-n5 py-0">
+        <!-- com espaço no sub-header <div class="conatiner-fluid content-inner mt-n5 py-0"> -->
+        <!-- sem espaço no sub-header <div class="conatiner-fluid content-inner"> -->
         {{ $slot }}
     </div>
 
