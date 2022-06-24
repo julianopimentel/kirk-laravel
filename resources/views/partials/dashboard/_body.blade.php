@@ -3,12 +3,12 @@
 </div>
 @include('partials.dashboard._body_sidebar')
 <main class="main-content">
-    <div class="position-relative">
+    <div class="position-relative default">
         @include('partials.dashboard._body_header')
         @include('partials.dashboard.sub-header')
     </div>
 
-    <div class="conatiner-fluid content-inner mt-n5 py-0">
+    <div class="conatiner-fluid content-inner">
         {{ $slot }}
     </div>
 

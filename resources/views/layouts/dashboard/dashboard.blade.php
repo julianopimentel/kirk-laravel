@@ -10,7 +10,7 @@
 
     @include('partials.dashboard._head')
 </head>
-<body class="" >
+<body>
 @include('partials.dashboard._body')
 </body>
 
