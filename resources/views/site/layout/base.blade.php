@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -53,37 +54,22 @@
     </script>
 
     <!-- ========== Start Stylesheet ========== -->
-    <link href="{{ asset('site/assets/css/bootstrap.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/font-awesome.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/flaticon-set.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/magnific-popup.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/owl.carousel.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/owl.theme.default.min.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/animate.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/assets/css/bootsnav.css')}}" rel="stylesheet" />
-    <link href="{{ asset('site/style.css')}}" rel="stylesheet">
-    <link href="{{ asset('site/assets/css/responsive.css')}}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/font-awesome.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/flaticon-set.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/magnific-popup.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/owl.carousel.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/owl.theme.default.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/animate.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/assets/css/bootsnav.css') }}" rel="stylesheet" />
+    <link href="{{ asset('site/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('site/assets/css/responsive.css') }}" rel="stylesheet" />
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-
-
-
-    <!-- ========== End Stylesheet ========== -->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="site/assets/js/html5/html5shiv.min.js"></script>
-      <script src="site/assets/js/html5/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- ========== Google Fonts ========== -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800" rel="stylesheet">
 
 </head>
 
@@ -100,7 +86,7 @@
 
     @include('site.layout.footer')
 
-   
+
     <!-- End Footer -->
 
     <!-- jQuery Frameworks

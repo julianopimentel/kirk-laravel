@@ -6,5 +6,4 @@
 <div class="wrapper">
     {{ $slot }}
 </div>
-@include('partials.dashboard._body_footer')
 @include('partials.dashboard._scripts')
