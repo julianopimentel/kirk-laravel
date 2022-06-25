@@ -121,6 +121,7 @@ class Peoples_PrecadastroController extends Controller
             //criar o acesso vinculado a conta se for aprovado
             $response = $this->criar(session()->get('aprovada-id'), session()->get('key'), $people->id);
         if ($response['success']) {
+            
             $people_pre->save();
             $people->save();
 

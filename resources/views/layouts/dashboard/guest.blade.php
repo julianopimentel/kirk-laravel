@@ -17,16 +17,18 @@
         <link rel="stylesheet" href="{{asset('css/hope-ui.css?v=1.0')}}">
         <!-- remixicon -->
         <!-- <link rel="stylesheet" href="{{ asset('vendor/remixicon/fonts/remixicon.css') }}"/> -->
+        @include('partials.dashboard._head')
 
     </head>
-    <body class=" " data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
+    <body class="light theme-color-gray" data-bs-spy="scroll" data-bs-target="#elements-section" data-bs-offset="0" tabindex="0">
         <div id="loading">
             @include('partials.dashboard._body_loader')
-            @include('partials.dashboard._head')
+           
         </div>
         <div class="wrapper">
             {{ $slot }}
         </div>
          @include('partials.dashboard._scripts')
+         @include('partials.dashboard._app_toast')
     </body>
 </html>

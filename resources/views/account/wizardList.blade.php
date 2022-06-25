@@ -1,5 +1,4 @@
-@extends('layouts.baseminimal')
-@section('content')
+<x-app-layout layout="boxedfancy" :assets="$assets ?? []">
 
 <div class="loader loader-default is-active"></div>
 <div class="container-fluid">
@@ -143,8 +142,4 @@
         });
     </script>
 
-@endsection
-
-@section('javascript')
-
-@endsection
+</x-app-layout>

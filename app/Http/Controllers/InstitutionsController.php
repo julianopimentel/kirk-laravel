@@ -47,7 +47,7 @@ class InstitutionsController extends Controller
         $institutions = Users_Account::where('user_id', $you->id)
             ->with('accountlist')
             ->with('status')
-            //  ->orderby('name_company', 'asc')
+            //->orderby('name_company', 'asc')
             ->paginate($this->totalPagesPaginate);
 
 

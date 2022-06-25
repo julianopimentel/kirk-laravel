@@ -31,4 +31,10 @@ class Users_Account extends Model
     {
         return $this->belongsTo('App\Models\Status', 'status_id');
     }
+
+    public function people()
+    {
+        return $this->belongsTo(People::class, 'people_id', 'id');
+    }
+
 }

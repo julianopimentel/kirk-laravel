@@ -8,18 +8,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use App\Models\People;
 use App\Models\Institution;
+use App\Models\People_Aud;
 use App\Models\Users_Account;
 use App\Models\User;
+use App\Models\Users_Account_Aud;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class WizardCustomController extends Controller
 {
     use SoftDeletes;
-    use AuthenticatesUsers;
+
     /**
      * Create a new controller instance.
      *
@@ -36,8 +38,14 @@ class WizardCustomController extends Controller
         Config::set('database.connections.admin');
         $results = Institution::where('unique_id', '=', $id)->first();
 
-        //inserir na array dos dados
-        session()->put('schema', $results->tenant);
+
+        //se a selecao da conta estiver vazio
+        if ($results == null) {
+            session()->flash("info", "Link inválido");
+            return redirect('login');
+        } else
+            //inserir na array dos dados
+            session()->put('schema', $results->tenant);
 
         //inserir o código
         session()->put('key', $results->id);
@@ -48,12 +56,8 @@ class WizardCustomController extends Controller
         //inserir o nome da conta para envio do email
         session()->put('conta_name', $results->name_company);
 
-        //se a selecao da conta estiver vazio
-        if (session()->get('key') == null) {
-            return redirect('login');
-        };
         //se o usuario for integrador ele abre a edição da conta
-        if ($results->compartilhar_link == false or $results->deleted_at == !null) {
+        if ($results->compartilhar_link == false or $results->deleted_at == !null or session()->get('key') == null) {
             session()->flash("info", "Link inválido");
             return redirect('login');
         };
@@ -63,14 +67,17 @@ class WizardCustomController extends Controller
             return redirect('account');
         };
         //retornar
-        return redirect()->route('wizardCustom.create');
+        return view('auth.wizardCustom');
     }
 
     public function create()
     {
-        //carregar a tela de cadastro
-        return view('account.wizardCustom');
+        // apenas para redirecionar quando é digitado direto o share na url
+        session()->flash("info", "Link inválido");
+        return redirect('login');
     }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -113,9 +120,20 @@ class WizardCustomController extends Controller
             ]);
             //associar ao user
             $user->assignRole('user');
-            //vincular o user e salvar
+            //gerar a sessão para poder pegar o ID (nao funcionou)
+            $request->session()->regenerate();
+            //vincular o user e salvar (temporario)
             $people->user_id = $user->id;
             $people->save();
+            //adicionar auditoria
+            People_Aud::create([
+                'id' => $people->id,
+                'name' => $people->name,
+                'email' => $people->email,
+                'phone' => $people->phone,
+                'role' => $people->role,
+                'status_id' => $people->status_id,
+            ]);
             //validar email agora cadastrado
             $validaruser = User::where('email', $people->email)->get();
             //associar usuário a pessoa na conta local se tiver
@@ -127,20 +145,17 @@ class WizardCustomController extends Controller
             $email = $people->email;
             Mail::to($people->email)->send(new SendMailBemVindo($conta_name, $email, $pwa));
 
-            if (Auth::attempt($credentials)) {
-                //criar vinculo com a conta
-                $this->criar($user->id, session()->get('key'));
-                //adicionar log local
-                $this->adicionar_log_global('14', 'C', $user);
-                //adicionar log
-                $this->adicionar_log('10', 'C', $people);
+            //criar vinculo com a conta
+            $this->criar($user->id, session()->get('key'), $people->id);
+            //adicionar log local
+           // $this->adicionar_log_global('14', 'C', $user);
+            //adicionar log
+           // $this->adicionar_log('10', 'C', $people);
 
-                $request->session()->regenerate();
+            
 
-                return redirect()->intended('account');
-            }
-            $request->session()->flash("success", 'Cadastrado com sucesso, enviaremos seu dados de acesso por e-mail');
-            return redirect()->route('account.index');
+            session()->flash("success", 'Cadastrado com sucesso, enviaremos seu dados de acesso por e-mail');
+            return redirect(RouteServiceProvider::HOME);
         } else {
             //se tiver precadastro
             session()->flash("info", "Você já possuiu vinculo, favor logar em sua conta");
@@ -148,19 +163,28 @@ class WizardCustomController extends Controller
         }
     }
 
-    public function criar($user_id, $accout_id): array
+    public function criar($user_id, $account_id, $people_id): array
     {
-        DB::beginTransaction();
+        FacadesDB::beginTransaction();
         //criar vinculo com a conta
         $useraccount = new Users_Account();
         $useraccount->user_id = $user_id;
-        $useraccount->account_id = $accout_id;
+        $useraccount->account_id = $account_id;
+        $useraccount->people_id = $people_id;
         $useraccount->save();
 
         if ($useraccount) {
             //adicionar log
-            $this->adicionar_log_global('11', 'C', $useraccount);
-            DB::commit();
+            //$this->adicionar_log_global('11', 'C', $useraccount);
+            FacadesDB::commit();
+            //auditoria do vinculo com a conta
+            Users_Account_Aud::create([
+                'id' =>  $useraccount->id,
+                'user_id' => $user_id,
+                'account_id' => $account_id,
+                'people_id' => $people_id,
+                'created_at' => date('Y-m-d H:i:s')
+            ]);
 
             return [
                 'success' => true,
@@ -168,7 +192,7 @@ class WizardCustomController extends Controller
             ];
         } else {
 
-            DB::rollback();
+            FacadesDB::rollback();
 
             return [
                 'success' => false,

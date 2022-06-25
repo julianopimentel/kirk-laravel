@@ -1,6 +1,6 @@
-@extends('layouts.authBase')
+<x-guest-layout>
 {!! NoCaptcha::renderJs() !!}
-@section('content')
+
     <div class="container mt-2">
         <div class="row justify-content-center">
 
@@ -78,42 +78,24 @@
                                         <input type="checkbox" name="agree" class="custom-control-input" id="agree"
                                             required>
                                         <label class="custom-control-label" for="agree">{{ __('auth.agree') }}<a
-                                                href="https://deskapp.online/terms.php">{{ __('auth.term') }}</a>
+                                                href="https://kirk.digital/terms.php">{{ __('auth.term') }}</a>
                                             {{ __('auth.and') }}
-                                            <a href="https://deskapp.online/privacy.php">
+                                            <a href="https://kirk.digital/privacy.php">
                                                 {{ __('auth.privacy') }}
                                             </a></label>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" data-sitekey="{{ config('app.recaptcha_site_key') }}" class="g-recaptcha btn btn-dark btn-lg btn-block" tabindex="4">
+                                    <button type="submit" data-sitekey="{{ config('app.recaptcha_site_key') }}" class="g-recaptcha btn btn-dark btn-block" tabindex="4">
                                         {{ __('auth.register') }}
                                     </button>
                                 </div>
                             </form>
                         </div>
-                        <!--
-                <div class="card-footer p-4">
-                  <div class="row">
-                    <div class="col-6">
-                      <button class="btn btn-block btn-facebook" type="button">
-                        <span>Facebook</span>
-                      </button>
-                    </div>
-                    <div class="col-6">
-                      <button class="btn btn-block btn-twitter" type="button">
-                        <span>T witter</span>
-                      </button>
-                    </div>
-                  </div>
-                  -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endsection
-
-@section('javascript')
-@endsection
+</x-guest-layout>

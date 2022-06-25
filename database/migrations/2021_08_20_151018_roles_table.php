@@ -19,6 +19,8 @@ class RolesTable extends Migration
 		{
 			$table->bigInteger('id', true);
 			$table->string('name');
+            $table->boolean('padrao')->nullable()->default(0);
+			$table->boolean('visivel')->nullable()->default(1);
             //pessoa
 			$table->boolean('add_people')->nullable()->default(0);
 			$table->boolean('edit_people')->nullable()->default(0);

@@ -58,7 +58,7 @@ Route::post('newsletter/delete', 'WelcomeController@deletenewsletter')->name('de
 //compartilhamento do qr code + cadastro
 Route::get('/share/{id}', 'WizardCustomController@index')->name('wizardCustom.index');
 Route::get('share', 'WizardCustomController@create')->name('wizardCustom.create');
-Route::post('share', 'WizardCustomController@store')->name('wizardCustom.store');
+Route::post('share/save', 'WizardCustomController@store')->name('wizardCustom.store');
 
 //fixar a localização
 Route::get('greeting/{locale}', function ($locale) {

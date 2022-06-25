@@ -66,7 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'admin' => \App\Http\Middleware\Admin::class,
-        //'get.menu' => \App\Http\Middleware\GetMenu::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \App\Http\Middleware\GetPermission::class,
         'system' => \App\Http\Middleware\GetSystem::class,

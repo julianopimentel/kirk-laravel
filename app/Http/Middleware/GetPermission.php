@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\People;
+use App\Models\User;
+use App\Models\Users_Account;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -31,7 +33,7 @@ class GetPermission
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
        
         //pegar permissao do grupo
-        $roles = People::where('user_id', $you->id)->with('roleslocal')->first();
+        $roles = People::where('id', $you->people->id)->with('roleslocal')->first();
         if (Auth::user()->isAdmin() == true) {
             $roles = People::where('id', '1')->with('roleslocal')->first();
             view()->share('appPermissao', $roles->roleslocal);

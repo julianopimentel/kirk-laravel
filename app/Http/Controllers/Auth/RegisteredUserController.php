@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendMailNovaConta;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -41,10 +43,12 @@ class RegisteredUserController extends Controller
 
         Auth::login($user = User::create([
             'username' => strtolower($request->first_name).strtolower($request->last_name),
+            'name' => strtolower($request->first_name) . ' '. strtolower($request->last_name),
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'phone_number' => $request->phone_number,
+            'phone' => $request->phone_full,
             'email' => $request->email,
+            'agree' => $request->agree,
             'password' => Hash::make($request->password),
             'user_type' => 'user'
         ]));
@@ -52,6 +56,7 @@ class RegisteredUserController extends Controller
         $user->assignRole('user');
 
         event(new Registered($user));
+        Mail::to($user->email)->queue(new SendMailNovaConta());
 
         return redirect(RouteServiceProvider::HOME);
     }

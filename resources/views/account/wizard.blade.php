@@ -1,6 +1,4 @@
-@extends('layouts.baseminimal')
-@section('content')
-
+<x-app-layout layout="boxedfancy" :assets="$assets ?? []">
     <div class="container-fluid">
         <div class="fade-in">
             <div class="row">
@@ -302,8 +300,4 @@
         });
     </script>
 
-@endsection
-
-@section('javascript')
-
-@endsection
+</x-app-layout>

@@ -7,7 +7,6 @@ use App\Models\Institution;
 use App\Models\Users_Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
 
 class TenantController extends Controller
 {
