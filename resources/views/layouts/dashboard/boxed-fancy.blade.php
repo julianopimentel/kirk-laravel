@@ -9,7 +9,7 @@
     <title>{{env('APP_NAME')}} | Account</title>
     @include('partials.dashboard._head')
 </head>
-<body class="boxed-fancy" >
+<body class="boxed-fancy light theme-color-gray" id="app">
 @include('partials.dashboard._body6')
 </body>
 </html>

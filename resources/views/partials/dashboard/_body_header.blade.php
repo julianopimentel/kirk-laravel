@@ -75,25 +75,6 @@ c-14-14.4-10-37.6,6-44C236,210.4,245.2,212.4,252,220.4z" />
                                                 style="width: 15px;height: 15px;min-width: 15px;" />Spanish
                                         </a>
                                     </li>
-                                    <!-- inativo a lang <li class="iq-sub-card list-group-item">
-                                       <a class="p-0" href="/greeting/sp"><img
-                                                src="{{ asset('images/Flag/flag-04.png') }}" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />Italian</a></li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="#"><img
-                                                src="{{ asset('images/Flag/flag-02.png') }}" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />French</a></li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="/greeting/fr"><img
-                                                src="{{ asset('images/Flag/flag-05.png') }}" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />German</a></li>
-                                    <li class="iq-sub-card list-group-item"><a class="p-0" href="/greeting/ge"><img
-                                                src="{{ asset('images/Flag/flag-06.png') }}" alt="img-flaf"
-                                                class="img-fluid me-2"
-                                                style="width: 15px;height: 15px;min-width: 15px;" />Japanese</a></li>
-                                    -->
-
                                 </ul>
                             </div>
                         </div>
@@ -105,14 +86,13 @@ c-14-14.4-10-37.6,6-44C236,210.4,245.2,212.4,252,220.4z" />
                     <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
 
-                        @if (empty(auth()->user()->profile_image))
+                        @if (empty(Auth::user()->profile_image))
                             <img src="{{ asset('images/avatars/01.png') }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                                class="img-fluid avatar avatar-50 avatar-rounded">
                         @else
-                            <img src="{{ stream_get_contents(Auth()->user()->image) }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                            <img src="{{ stream_get_contents(auth()->user()->image) }}" alt="User-Profile"
+                                class="img-fluid avatar avatar-50 avatar-rounded">
                         @endif
-
                         <div class="caption ms-3 d-none d-md-block ">
                             <h6 class="mb-0 caption-title">
                                 @if (session('key') and Auth::user()->people == !null)

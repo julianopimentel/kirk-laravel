@@ -10,7 +10,7 @@
 
     @include('partials.dashboard._head')
 </head>
-<body class="light theme-color-gray">
+<body class="light theme-color-gray" id="app">
    <!-- <body class="light theme-color-gray"> ou <body> -->
 
 @include('partials.dashboard._body')

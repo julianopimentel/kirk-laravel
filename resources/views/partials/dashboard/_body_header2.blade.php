@@ -48,7 +48,7 @@
                             <div class=" p-0 ">
                                 <ul class="list-group list-group-flush">
                                     <li class="iq-sub-card list-group-item">
-                                        <a class="p-0" href="/greeting/{en}"><img
+                                        <a class="p-0" href="/greeting/en"><img
                                                 src="{{ asset('images/Flag/flag-01.png') }}" alt="img-flaf"
                                                 class="img-fluid me-2"
                                                 style="width: 15px;height: 15px;min-width: 15px;" />Spanish
@@ -92,10 +92,10 @@
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         @if (empty(auth()->user()->profile_image))
                             <img src="{{ asset('images/avatars/01.png') }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                                class="img-fluid avatar avatar-50 avatar-rounded">
                         @else
                             <img src="{{ stream_get_contents(Auth()->user()->image) }}" alt="User-Profile"
-                                class="theme-color-default-img img-fluid avatar avatar-50 avatar-rounded">
+                                class="img-fluid avatar avatar-50 avatar-rounded">
                         @endif
 
                         <div class="caption ms-3 ">

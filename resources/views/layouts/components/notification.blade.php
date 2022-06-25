@@ -1,7 +1,3 @@
-@php
-$user = auth()->user();
-@endphp
-
 <li class="nav-item dropdown">
     <a href="#" class="nav-link" id="notification-drop" data-bs-toggle="dropdown">
         <svg width="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -25,7 +21,7 @@ $user = auth()->user();
                 <a href="{{ route('notificationread') }}">Marcar todos como lida</a>
             </div>
             <div class="card-body p-0">
-                @foreach ($user->unreadNotifications as $notification)
+                @foreach (auth()->user()->unreadNotifications as $notification)
                     @if ($notification->type == 'App\Notifications\ConfirmEvent')
                         <a href="#" class="iq-sub-card">
                             <div class="d-flex align-items-center">
@@ -103,7 +99,7 @@ $user = auth()->user();
                         </a>
                     @endif
                 @endforeach
-                @if ($user->unreadNotifications()->count() == 0)
+                @if (auth()->user()->unreadNotifications()->count() == 0)
                 <a href="#" class="iq-sub-card">
                     <div class="d-flex align-items-center">
                         <div class="avatar-40 rounded-pill bg-soft-secundary p-2">
