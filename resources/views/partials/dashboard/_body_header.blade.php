@@ -98,7 +98,7 @@ c-14-14.4-10-37.6,6-44C236,210.4,245.2,212.4,252,220.4z" />
                                 @if (session('key') and Auth::user()->people == !null)
                                     {{ ucwords(strtolower(auth()->user()->people->name)) }}
                                 @else
-                                    {{ ucwords(strtolower(auth()->user()->full_name ?? 'Ajustar nome')) }}
+                                    {{ ucwords(strtolower(auth()->user()->name ?? 'Ajustar nome')) }}
                                 @endif
                             </h6>
                             <p class="mb-0 caption-sub-title text-capitalize">

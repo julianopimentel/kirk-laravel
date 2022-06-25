@@ -4,11 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Models\People;
-use App\Models\User;
-use App\Models\Users_Account;
+use App\Models\Roles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Contracts\Role;
 
 class GetPermission
 {
@@ -32,13 +31,15 @@ class GetPermission
         //setar tenant
         Config::set('database.connections.tenant.schema', session()->get('conexao'));
        
-        //pegar permissao do grupo
-        $roles = People::where('id', $you->people->id)->with('roleslocal')->first();
+        //caso seja o master
         if (Auth::user()->isAdmin() == true) {
-            $roles = People::where('id', '1')->with('roleslocal')->first();
-            view()->share('appPermissao', $roles->roleslocal);
+            $roleslocal = Roles::find('5');
+            view()->share('appPermissao', $roleslocal);
             return $next($request);
         }
+        else
+        //pegar permissao do grupo
+        $roles = People::where('id', $you->people->id)->with('roleslocal')->first();
         //consultar dados do usuario local
         if ($roles == null or $you->people->status_id == '13') {
             //caso não possua acesso associado e grupo vinculado, retorna para selecionar a conta
