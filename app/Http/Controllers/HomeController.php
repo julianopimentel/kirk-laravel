@@ -59,7 +59,7 @@ class HomeController extends Controller
             $auditoria->user_id       = $you->id;
             $auditoria->manipulations       = '{"primeiro_acesso":"yes","ID":"' . $you->id . '"}';
             $auditoria->save();
-            $request->session()->flash("info", "É necessário configurar a conta");
+            session()->flash("info", "É necessário configurar a conta");
 
             //inserir valor do financeiro
             $balance = new Balance();

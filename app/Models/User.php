@@ -15,7 +15,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 class User extends Authenticatable implements MustVerifyEmail, HasMedia
 {
     use Notifiable, SoftDeletes, HasRoles, HasFactory, HasApiTokens, InteractsWithMedia;
-    
+
 
     protected $connection = 'pgsql';
     protected $table = 'users';
@@ -69,12 +69,17 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
     {
         return $this->master  === true;
     }
+    //validar se e um master
+    public function isMaster()
+    {
+        return $this->menuroles  == 'master';
+    }
     //pegar o user global na conta
     public function people()
     {
         return $this->belongsTo(People::class, 'id', 'user_id');
     }
-    
+
     public function getListContas()
     {
         return $this->belongsTo('App\Models\Users_Account', 'id', 'user_id');
@@ -87,7 +92,8 @@ class User extends Authenticatable implements MustVerifyEmail, HasMedia
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function userProfile() {
+    public function userProfile()
+    {
         return $this->hasOne(UserProfile::class, 'user_id', 'id');
     }
 }

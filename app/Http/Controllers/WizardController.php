@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config_system;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
@@ -12,7 +14,7 @@ class WizardController extends Controller
 {
     use SoftDeletes;
 
-    private $totalPagesPaginate = 12;
+    private $totalPagesPaginate = 10;
     /**
      * Create a new controller instance.
      *
@@ -37,18 +39,21 @@ class WizardController extends Controller
         };
         //carregar contas ativas
         $institutions = Institution::all()->where('deleted_at', '=', null);
-        return view('account.wizardList', ['institutions' => $institutions]);
+        return view('account.wizard.wizardList', ['institutions' => $institutions]);
     }
-    
+
     public function searchAccount(Request $request, Institution $institution)
     {
         $dataForm = $request->except('_token');
         //carregar pesquisa das contas ativas
         $institutions =  $institution->search($dataForm, $this->totalPagesPaginate)->where('deleted_at', '=', null);
-        return view('account.wizardList', compact('institutions', 'dataForm'));
+        return view('account.wizard.wizardList', compact('institutions', 'dataForm'));
     }
     public function create()
     {
+        Config::set('database.connections.tenant.schema', session()->get('key-wizard'));
+        //campos obrigatório
+        $campo = Config_system::find('1')->first();
         //se for admin não habilitar o wizard
         if (auth()->user()->isAdmin() == true) {
             session()->flash("error", 'Wizard não habilitado para admin');
@@ -58,9 +63,11 @@ class WizardController extends Controller
         if (session()->get('key-wizard') == null) {
             return redirect('wizardList');
         };
+        //localidade normal
+        $countries = Country::get(["name", "id"]);
         //carregar contas ativas
         $institutions = Institution::all()->where('deleted_at', '=', null);
-        return view('account.wizard', ['institutions' => $institutions]);
+        return view('account.wizard.wizard', compact('campo'), ['institutions' => $institutions, 'countries' => $countries]);
     }
     public function store(Request $request)
     {
@@ -72,34 +79,32 @@ class WizardController extends Controller
         //validar se tem precadastro já realizado
         $validarprecadastro = People_Precadastro::where('user_id', $you->id);
         //se nao possuir precadastro
-        if ($validarprecadastro->count() == 0)
-        {     
-        //inserir no banco correto
-        $people = new People_Precadastro();
-        $people->name          = strtoupper($request->input('name'));
-        $people->email         = auth()->user()->email;
-        $people->phone        = $request->input('phone_full');
-        $people->birth_at      = $request->input('birth_at');
-        $people->address       = $request->input('address');
-        $people->city          = $request->input('city');
-        $people->state          = $request->input('state');
-        $people->cep           = $request->input('cep');
-        $people->country       = $request->input('country');
-        $people->status_id = '21'; //pendente
-        $people->role = '2'; //membro
-        $people->sex       = $request->input('sex');
-        $people->user_id = $you->id;
-        $people->save();
-        //adicionar log
-        $this->adicionar_log('10', 'C', $people);
-        
-        $request->session()->flash("success", 'Cadastrado com sucesso, aguarde aprovação do administrador');
-        return redirect()->route('account.index');
-        }
-        else{
+        if ($validarprecadastro->count() == 0) {
+            //inserir no banco correto
+            $people = new People_Precadastro();
+            $people->name          = strtoupper($request->input('name'));
+            $people->email         = auth()->user()->email;
+            $people->phone        = $request->input('phone_full');
+            $people->birth_at      = $request->input('birth_at');
+            $people->address       = $request->input('address');
+            $people->city          = $request->input('city');
+            $people->state          = $request->input('state');
+            $people->cep           = $request->input('cep');
+            $people->country       = $request->input('country');
+            $people->status_id = '21'; //pendente
+            $people->role = '2'; //membro
+            $people->sex       = $request->input('sex');
+            $people->user_id = $you->id;
+            $people->save();
+            //adicionar log
+            $this->adicionar_log('10', 'C', $people);
+
+            $request->session()->flash("success", 'Cadastrado com sucesso, aguarde aprovação do administrador');
+            return redirect()->route('account.index');
+        } else {
             //se tiver precadastro
-           session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
-           return redirect()->route('account.index');
+            session()->flash("info", "Você já possuiu vinculo, aguarde um administrador aprovar o seu acesso.");
+            return redirect()->route('account.index');
         }
     }
 

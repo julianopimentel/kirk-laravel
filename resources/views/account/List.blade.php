@@ -9,7 +9,7 @@
                             <h4 class="card-title">{{ __('account.select') }}</h4>
                         </div>
                     </div>
-                        <br>
+                    <br>
                     <div class="bd-example table-responsive">
                         <table class="table table-responsive table-responsive-xl">
                             <thead>
@@ -57,9 +57,12 @@
                                                     @csrf
                                                     <button class="btn btn-primary-outline show_confirm"
                                                         data-toggle="tooltip" title='Delete'>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                                          </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                            height="20" fill="currentColor" class="bi bi-trash-fill"
+                                                            viewBox="0 0 16 16">
+                                                            <path
+                                                                d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                                                        </svg>
                                                     </button>
                                                 </form>
                                             @endif
@@ -71,9 +74,12 @@
                                                 @csrf
                                                 <button class="btn btn-primary-outline" data-toggle="modal"
                                                     data-target=".cd-load">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-door-open-fill" viewBox="0 0 16 16">
-                                                        <path d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
-                                                      </svg>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20"
+                                                        height="20" fill="currentColor" class="bi bi-door-open-fill"
+                                                        viewBox="0 0 16 16">
+                                                        <path
+                                                            d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2h.5a.5.5 0 0 1 .5.5V15h-1V2zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z" />
+                                                    </svg>
                                                 </button>
                                             </form>
                                         </td>
@@ -89,128 +95,75 @@
     </div>
 @else
     <center>
-        <h4><strong>Seja Bem-vindo a Igreja Digital!</strong></h4>
+        <h4><strong></strong></h4>
     </center>
     <br>
     <div class="row">
         <div class="col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"><strong>Tenha na palma de sua mão</strong></h5>
+                    <h4 class="card-title"> Seja Bem-vindo a Igreja Digital! </h4>
+                    <p class="card-text">Tenha na palma de sua mão
+                    <div class="input-group mb-3">
+                        <div class="v-text-align">
+                            <h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                                Eventos
+                            </h5>
+                            <p>
+                                <label class="form-label">Gostaria de confirmar sua presença no evento? Acompanhar os
+                                    preparativos?</label>
+                            </p>
+                        </div>
+                    </div>
+                    </p>
                     <p class="card-text">
-
-                    <table id="u_content_text_6" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="color: #636f83; line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;">
-                                            <strong>&#8594; Eventos</strong>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table id="u_content_text_7" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;"><span
-                                                style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Gostaria
-                                                de confirmar sua presen&ccedil;a no evento?
-                                                Acompanhar os preparativos?</span>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table id="u_content_text_8" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="color: #636f83; line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;">
-                                            <strong>&#8594; Grupos</strong>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table id="u_content_text_9" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;"><span
-                                                style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Participe
-                                                de seu grupo, veja a
-                                                pr&oacute;xima reuni&atilde;o e converse apenas
-                                                entre vocês</span>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table id="u_content_text_5" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="color: #636f83; line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;">
-                                            <strong>&#8594; Dizimos</strong>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table id="u_content_text_4" style="font-family:arial,helvetica,sans-serif;" role="presentation"
-                        cellpadding="0" cellspacing="0" width="100%" border="0">
-                        <tbody>
-                            <tr>
-                                <td class="v-container-padding-padding"
-                                    style="overflow-wrap:break-word;word-break:break-word;padding:10px 10px 0px;font-family:arial,helvetica,sans-serif;"
-                                    align="left">
-                                    <div class="v-text-align"
-                                        style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                                        <p style="font-size: 14px; line-height: 140%;"><span
-                                                style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Aqui
-                                                se a igreja desejar, poder&aacute; lhe mostrar
-                                                seu movimento financeiro, seus dizimo e
-                                                ofertas.</span>
-                                        </p>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br>
-                    </p><a class="btn btn-primary" href="{{ route('features') }}">Conheça</a>
+                    <div class="input-group mb-3">
+                        <div class="v-text-align">
+                            <h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                                Mural de Recados
+                            </h5>
+                            <p>
+                                <label class="form-label">Encontre as noticias, sermões ou palavras mais importante de
+                                    sua Igreja!</label>
+                            </p>
+                        </div>
+                    </div>
+                    </p>
+                    <p class="card-text">
+                    <div class="input-group mb-3">
+                        <div class="v-text-align">
+                            <h5>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                    fill="currentColor" class="bi bi-calendar-check" viewBox="0 0 16 16">
+                                    <path
+                                        d="M10.854 7.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 9.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                    <path
+                                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                </svg>
+                                Dizimos e Ofertas
+                            </h5>
+                            <p>
+                                <label class="form-label">Acompanhe a movimentação financeira de seus Dizimos e
+                                    Ofertas.</label>
+                            </p>
+                        </div>
+                    </div>
+                    </p>
+                    <a class="btn btn-primary" href="{{ route('features') }}">Conheça</a>
                 </div>
             </div>
         </div>
@@ -224,19 +177,7 @@
                         Gostaria de criar um<br> pré-cadastro a sua igreja? </h6>
                     </p>
                     <br>
-                    <a class="btn btn-primary" href="{{ route('wizard.index') }}">Avançar</a>
-
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-12">
-            <div class="card text-white bg-dark mb-3 text-center">
-                <div class="card-body">
-                    <h5 class="card-title">Você tem uma pergunta?</h5>
-                    <p class="card-text">Caso tenha dúvidas sobre a nossa plataforma, entre em contato conosco ou
-                        com o
-                        responsável pela administração de sua igreja</p>
-                    <a class="btn btn-light" href="{{ config('app.url') }}/#contact">Entre em contato</a>
+                    <a class="btn btn-success" href="{{ route('wizard.index') }}">Avançar</a>
                 </div>
             </div>
         </div>
