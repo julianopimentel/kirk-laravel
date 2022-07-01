@@ -24,6 +24,7 @@ class Historic extends Model
             'I' => 'Entrada',
             'O' => 'Retirada',
             'T' => 'Transferência',
+            'A' => 'Avulso',
         ];
 
         if (!$type) {

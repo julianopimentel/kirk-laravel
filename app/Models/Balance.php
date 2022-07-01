@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB as FacadesDB;
 
 class Balance extends Model
 {
-    public $timestamps = false;
+    public $timestamps = true;
     protected $connection = 'tenant';
 
     public function deposit($valor, $pag, $date_lancamento, $observacao, $tipo, $people, $date, $sub_total, $total_tax, $discount, $contas_financeiras): array
@@ -144,7 +144,7 @@ class Balance extends Model
         $transferSender = $senderBalance->save();
 
         $historicSender = Historic::create([
-            'type'                 => 'I',
+            'type'                 => 'A',
             'amount'               => $valor,
             'total_before'         => $totalBeforeSender,
             'total_after'          => $senderBalance->amount,
@@ -153,7 +153,8 @@ class Balance extends Model
             'balance_id'    => $this->id,
             'user_id'  => auth()->user()->id,
             'total_tax' => '0',
-            'discount' => '0'
+            'discount' => '0',
+            'deleted_at' => date('Y-m-d H:m:s')
         ]);
 
         if ($transfer && $historic && $transferSender && $historicSender) {

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Account_Integrador;
 use App\Models\Account_Transations;
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\Institution;
+use App\Models\State;
 use App\Models\Status;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
@@ -104,8 +106,13 @@ class InstitutionsController extends Controller
         $statuses = Status::all()->where("type", 'system');
         //se o usuario for integrador ele abre a edição da conta
         if ($institution->integrador == $you->integrador_id and $institution->deleted_at == null) {
-            return view('account.EditForm', compact('institution'), ['statuses' => $statuses]);
+            //localidade normal
+            $countries = Country::all();
+            $state = State::where('country_id', $institution->country)->get();
+            $city = City::where('state_id', $institution->state)->get();
+            return view('account.EditForm', compact('institution'), ['statuses' => $statuses, 'countries' => $countries, 'state' => $state, 'city' => $city]);
         };
+
         //se não for, retorna um erro generico
         session()->flash("error", 'Error interno');
         return redirect('account');

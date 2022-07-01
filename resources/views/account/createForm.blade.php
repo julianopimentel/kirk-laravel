@@ -164,7 +164,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <hr>
                                             <div class="col-md-6">
                                                 <label for="latitude" class="form-label">Latitude</label>
                                                 <input class="form-control" name="lat" type="text"

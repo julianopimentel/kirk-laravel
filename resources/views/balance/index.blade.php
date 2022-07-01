@@ -1,9 +1,10 @@
 @if ($appPermissao->view_financial == true)
     <x-app-layout :assets="$assets ?? []">
-        @if (!empty($_GET['month']) && !empty($_GET['year']))
+        @if (!empty($_GET['month']) && !empty($_GET['year']) & !empty($_GET['origem']))
             @php
                 $month = $_GET['month'];
                 $year = $_GET['year'];
+                $origem = $_GET['origem'];
             @endphp
         @else
             @php
@@ -89,6 +90,19 @@
                                     @endfor
                                 </select>
                             </div>
+                            <!--
+                            <div class="form-group">
+                                <select class="form-select" name="origem"
+                                    onchange="location.replace('{{ route('transaction.index') }}?month={{ str_pad($month, 2, 0, STR_PAD_LEFT) }}&year={{ $year ?? '' }}&origem='+this.value)">
+                                    @foreach ($contas_financeiras as $origem)
+                                    <option value="none" selected disabled hidden>Nenhum selecionado</option>
+                                        <option value="{{ $origem->id }}">
+                                            {{ $origem->card_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        -->
 
                             <div>
                                 <ul class="nav nav-tabs" role="tablist">
@@ -191,8 +205,7 @@
                                                     @include('balance.viewindividual')
                                                 <td width="1%">
                                                     @if ($appPermissao->view_financial == true)
-                                                        <a
-                                                            href="{{ route('transaction.show', $transaction->id) }}">
+                                                        <a href="{{ route('transaction.show', $transaction->id) }}">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                                 height="16" fill="currentColor"
                                                                 class="bi bi-file-earmark-pdf-fill"
@@ -239,19 +252,19 @@
                                                 </td>
                                                 <td class="text-right">
                                                     <span
-                                                        class="{{ $transaction->type == 'I' ? 'text-success' : 'text-danger' }}">{{ $appSystem->currency }}
+                                                        class="{{ $transaction->type == 'O' ? 'text-danger' : 'text-success' }}">{{ $appSystem->currency }}
                                                         {{ formattedMoney($transaction->amount) }}</span>
                                                 </td>
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="5" class="text-center">Nenhuma transação
+                                                <td colspan="7" class="text-center">Nenhuma transação
                                                     encontrada...</td>
                                             </tr>
                                         @endforelse
                                         <tr
                                             class="table {{ $month_one - $month_zero >= 0 ? 'text-success' : 'text-danger' }}">
-                                            <td colspan="4">
+                                            <td colspan="7">
                                                 <strong>Total do mês</strong>
                                             </td>
                                             <td colspan="4" class="text-right">

@@ -13,7 +13,7 @@
                             <button class="btn btn-primary" type="submit" data-toggle="modal"
                                 data-target="#storeAddIntegrador"><i class="c-icon c-icon-sm cil-plus"></i>
                                 </button>
-                                @include('account.add.addFinanceiro')
+                                @include('admin.add.addFinanceiro')
                         </div>
                     </div>
                 </div>

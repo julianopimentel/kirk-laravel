@@ -28,7 +28,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin.usersList', compact('users'));
+        return view('admin.users.usersList', compact('users'));
     }
 
     /**
@@ -52,7 +52,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('admin.userEditForm', compact('user'));
+        return view('admin.users.userEditForm', compact('user'));
     }
 
     /**
@@ -74,23 +74,7 @@ class UsersController extends Controller
         $user->phone       = $request->input('phone_full');
         $user->master       = $request->has('master') ? 1 : 0;
         $user->save();
-        $request->session()->flash("success", "Successfully updated user");
+        session()->flash("success", "Successfully updated user");
         return redirect()->route('users.index');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     
-    *public function destroy($id)
-    *{
-       * $user = User::find($id);
-      *  if($user){
-       *     $user->delete();
-      *  }
-     *   return redirect()->route('users.index');
-    *}
-    */
 }

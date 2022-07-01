@@ -40,8 +40,8 @@ class BalanceController extends Controller
 
         $month = empty($request->get('month')) ? date('m') : $request->get('month');
         $year = empty($request->get('year')) ? date('Y') : $request->get('year');
-
-
+        $origem = $request->get('origem');
+        
         $transactions = Historic::with('status')->with('statuspag')->whereMonth('date', $month)->whereYear('date', $year)->orderBy('date')->get();
 
         $categories = Historic::latest()->get();

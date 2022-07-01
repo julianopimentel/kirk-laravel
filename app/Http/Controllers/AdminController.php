@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 use App\Models\Institution;
 use App\Models\User;
 use App\Models\Users;
-use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables as FacadesDataTables;
 
 class AdminController extends Controller
 {
@@ -35,7 +35,7 @@ class AdminController extends Controller
                 ->wherenull('deleted_at')
                 // ->orderby('name_company', 'asc')
                 ->get();
-            return DataTables::of($data)
+            return FacadesDataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $btn = '<a href="'. route("account.edit", $row->id) .'" class="btn btn-primary-outline"><i
@@ -62,7 +62,7 @@ class AdminController extends Controller
         $institutions =  $institutions->search($dataForm, $this->totalPagesPaginate);
         //pegar os integradores
         $integradores = Account_Integrador::get();
-        return view('account.ListAdmin', compact('institutions', 'integradores'));
+        return view('admin.ListAdmin', compact('institutions', 'integradores'));
     }
 
     public function transactionsIndex()
@@ -73,7 +73,7 @@ class AdminController extends Controller
         $pagamentos = Account_Transations::with('getIntegrador:id,name_company')->paginate(10);
         //consultar integrador
         $integrador = Account_Integrador::all();
-        return view('account.Transations', compact('pagamentos', 'integrador'));
+        return view('admin.Transations', compact('pagamentos', 'integrador'));
     }
 
     public function integradorIndex()
@@ -83,7 +83,7 @@ class AdminController extends Controller
         //consultar user integrador
         $users = Users::all()->where('master', true)->wherenull('integrador_id');
 
-        return view('account.Integrador', compact('integradores', 'users'));
+        return view('admin.Integrador', compact('integradores', 'users'));
     }
     public function transactionsStore(Request $request)
     {
@@ -101,7 +101,7 @@ class AdminController extends Controller
         $transation->user_id = $user->id;
         $transation->save();
         //adicionar log
-        $request->session()->flash("success", 'Transação Adicionada');
+        session()->flash("success", 'Transação Adicionada');
         return redirect()->back();
     }
 
@@ -138,7 +138,7 @@ class AdminController extends Controller
         $user->master      = true;
         $user->save();
 
-        $request->session()->flash("success", 'Criado com sucesso');
+        session()->flash("success", 'Criado com sucesso');
         return redirect()->back();
     }
     public function IntegradorUpdate(Request $request, $id)
