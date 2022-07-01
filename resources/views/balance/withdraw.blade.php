@@ -11,6 +11,19 @@
                 <form action="{{ route('withdraw.store') }}" method="post">
                     {!! csrf_field() !!}
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Conta *</label>
+                                    <select class="form-select" id="retiradaconta" name="retiradaconta" required>
+                                        @foreach ($contas_financeiras as $retiradaconta)
+                                            <option value="{{ $retiradaconta->id }}">{{ $retiradaconta->card_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="form-label">Pessoa</label>

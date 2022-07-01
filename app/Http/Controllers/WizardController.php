@@ -87,10 +87,10 @@ class WizardController extends Controller
             $people->phone        = $request->input('phone_full');
             $people->birth_at      = $request->input('birth_at');
             $people->address       = $request->input('address');
-            $people->city          = $request->input('city');
-            $people->state          = $request->input('state');
+            $people->city          = $request->input('city-dd');
+            $people->state          = $request->input('state-dd');
             $people->cep           = $request->input('cep');
-            $people->country       = $request->input('country');
+            $people->country       = $request->input('country-dd');
             $people->status_id = '21'; //pendente
             $people->role = '2'; //membro
             $people->sex       = $request->input('sex');

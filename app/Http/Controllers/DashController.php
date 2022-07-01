@@ -10,8 +10,6 @@ use App\Models\Historic;
 use App\Models\Config_meta;
 use App\Models\People_Groups;
 use App\Models\People_Precadastro;
-use Overtrue\LaravelLike\Traits\Likeable;
-use PeoplePrecadastro;
 
 class DashController extends Controller
 {
@@ -32,7 +30,7 @@ class DashController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, Historic $historic)
     {
         //pegar schema
         $this->get_tenant();
@@ -169,10 +167,9 @@ class DashController extends Controller
         $formapag_boleto_anterior = Historic::where('pag', '19')->where('type', 'I')->where('date', 'like', "%$anoanterior%")->sum('amount');
         $formapag_pix_anterior = Historic::where('pag', '20')->where('type', 'I')->where('date', 'like', "%$anoanterior%")->sum('amount');
 
-        return view(
-            'dashboard.homepage',
-            compact(
-                'peopleativo',
+        $assets = ['chart', 'animation'];
+        return view('dashboards.dashboard', compact('assets',
+        'peopleativo',
                 'peoplevisitor',
                 'meta',
                 'notes',
@@ -253,15 +250,13 @@ class DashController extends Controller
                 'precadastro',
                 'porcentage_recado',
                 'porcentage_calendario',
-                'porcentage_precadastro'
-            )
-        );
+                'porcentage_precadastro'));
     }
     //calcular porcentagem individual x total
     function porcentagem_nx($parcial, $total)
     {
         if ($total == 0) {
-            $ratio = 0;
+            return 0;
         } else {
             return ($parcial * 100) / $total;
         }

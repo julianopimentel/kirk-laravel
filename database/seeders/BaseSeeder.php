@@ -25,6 +25,13 @@ class BaseSeeder extends Seeder
             'obg_last_name' => '1',
             'default_language' => 'pt',
         ]);
+        DB::table('balances')->insert([
+            'amount' => '0',
+            'card-name' => 'PADRAO',
+            'habilitar_financeiro' => '1',
+            'active' => '1',
+        ]);
+
 
         DB::table('config_meta')->insert([
             'ano' => date('Y'),

@@ -1,6 +1,6 @@
 <!-- Modal Depositar Transaction-->
-<div class="modal fade" id="storeTransactionEntrada" tabindex="-1" role="dialog"
-    aria-labelledby="storeTransactionTitle" aria-hidden="true">
+<div class="modal fade" id="storeTransactionEntrada" tabindex="-1" role="dialog" aria-labelledby="storeTransactionTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,10 +11,23 @@
                 <form method="POST" action="{{ route('deposit.store') }}">
                     {!! csrf_field() !!}
                     <div class="row">
+                        <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label">Conta *</label>
+                                    <select class="form-select" id="contas_financeiras" name="contas_financeiras" required>
+                                        @foreach ($contas_financeiras as $contas_financeiras)
+                                            <option value="{{ $contas_financeiras->id }}">{{ $contas_financeiras->card_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label class="form-label">Pessoa</label>
-                                <select class="itemName form-control" id="itemName" name="itemName"></select> 
+                                <!-- <select class="itemName form-control" id="itemName" name="itemName"></select>  -->
                                 <select class="form-select" id="itemName" name="itemName">
                                     <option value="">Para a instituição</option>
                                     @foreach ($people as $people)
@@ -65,14 +78,18 @@
                             <tr class="item">
                                 <td>
                                     <a href="javascript:void(0);" class="add_button btn btn-sm btn-primary"
-                                        title="Adicionar Item"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
-                                            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
-                                          </svg></a>
+                                        title="Adicionar Item"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" fill="currentColor" class="bi bi-plus-circle-fill"
+                                            viewBox="0 0 16 16">
+                                            <path
+                                                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
+                                        </svg></a>
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="text" name="product_description[]" class="form-control calcEvent"
-                                            id="product_description" placeholder="Descrição" required>
+                                        <input type="text" name="product_description[]"
+                                            class="form-control calcEvent" id="product_description"
+                                            placeholder="Descrição" required>
                                     </div>
                                 </td>
                                 <td>
@@ -90,8 +107,8 @@
                                 </td>
                                 <td>
                                     <div class="form-group">
-                                        <input type="number" name="tax[]" class="form-control calcEvent tax" value="0"
-                                            id="tax" placeholder="" required>
+                                        <input type="number" name="tax[]" class="form-control calcEvent tax"
+                                            value="0" id="tax" placeholder="" required>
                                     </div>
                                 </td>
                                 <td>
@@ -107,8 +124,7 @@
                         <div class="col-md-8">
 
                             <label for="ccmonth">Observação</label>
-                            <textarea class="form-control" name="observacao" rows="2"
-                                placeholder="Content.."></textarea>
+                            <textarea class="form-control" name="observacao" rows="2" placeholder="Anotação.."></textarea>
 
                         </div>
                         <div class="col-md-4 text-md">
@@ -138,8 +154,8 @@
                                 <tr>
                                     <input type="hidden" name="valor" class="valor" value="">
                                     <th><strong>Total:</strong></th>
-                                    <td class="text">{{ $appSystem->currency }} <span
-                                            id="valor">0.00</span></td>
+                                    <td class="text">{{ $appSystem->currency }} <span id="valor">0.00</span>
+                                    </td>
                                 </tr>
                             </table>
                         </div>

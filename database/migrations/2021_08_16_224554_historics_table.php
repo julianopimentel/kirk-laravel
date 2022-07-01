@@ -17,20 +17,22 @@ class historicsTable extends Migration {
 		Schema::connection('tenant')->create('historics', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('user_id');
-			$table->string('type');
-            $table->string('tipo')->nullable();
-            $table->string('pag')->nullable();
+			$table->integer('balance_id');
 			$table->float('amount', 10, 0);
 			$table->float('sub_total', 10, 0);
 			$table->float('total_tax', 10, 0);
 			$table->float('discount', 10, 0);
 			$table->float('total_before', 10, 0);
 			$table->float('total_after', 10, 0);
+			$table->float('rendimento', 10, 0);
 			$table->integer('user_id_transaction')->nullable();
+			$table->string('type');
+            $table->string('tipo')->nullable();
+            $table->string('pag')->nullable();
 			$table->json('itens')->nullable();
 			$table->date('date');
 			$table->string('observacao')->nullable();
+			$table->integer('user_id');
             $table->timestamps(10);
 			$table->softDeletes('deleted_at')->nullable();
 		});

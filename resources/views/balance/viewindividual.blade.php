@@ -38,7 +38,9 @@
                                     <div class="col-md-6">
                                         <address>
                                             <strong>Método de pagamento:</strong><br>
-                                            Tipo: {{ $transaction->status->name }}<br>
+                                            Tipo: @if ($transaction->tipo) {{ $transaction->status->name }} @endif<br>
+                                        
+
                                             @if ($transaction->userSender !== null)
                                                 Forma de pagamento: {{ $transaction->statuspag->name }}
                                             @endif

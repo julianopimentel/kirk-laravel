@@ -176,8 +176,8 @@
         </a>
         <ul class="sub-nav collapse" id="registrationsmenu" data-bs-parent="#sidebar">
             <li class="nav-item">
-                <a class="nav-link {{ activeRoute(route('sermons.showCategory')) }}"
-                    href="{{ route('sermons.showCategory') }}">
+                <a class="nav-link {{ activeRoute(route('registrations.showContas')) }}"
+                    href="{{ route('registrations.showContas') }}">
                     <i class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="10" viewBox="0 0 24 24" fill="currentColor">
                             <g>

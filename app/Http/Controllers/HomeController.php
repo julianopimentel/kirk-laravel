@@ -61,11 +61,6 @@ class HomeController extends Controller
             $auditoria->save();
             session()->flash("info", "É necessário configurar a conta");
 
-            //inserir valor do financeiro
-            $balance = new Balance();
-            $balance->account_id = session()->get('key');
-            $balance->amount = '0';
-            $balance->save();
         }
         if (Auth::user()->isAdmin() == false) {
             //analise de visita
@@ -149,7 +144,7 @@ class HomeController extends Controller
     function porcentagem_nx($parcial, $total)
     {
         if ($total == 0) {
-            $ratio = 0;
+            return 0;
         } else {
             return ($parcial * 100) / $total;
         }

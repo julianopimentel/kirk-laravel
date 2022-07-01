@@ -26,4 +26,5 @@ return [
     'category' => 'Categoria ',
     'financial' => 'Financeiro ',
     'configuration' => 'Configuração ',
+    'contas' => 'Conta ',
 ];

@@ -238,7 +238,7 @@
                                     <h4 class="card-title">Período Financeiro</h4>
                                 </div>
                                 <div class="d-flex align-items-center align-self-center">
-                                    <div class="d-flex align-items-center text-primary">
+                                    <div class="d-flex align-items-center text-success">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" viewBox="0 0 24 24"
                                             fill="currentColor">
                                             <g id="Solid dot2">
@@ -481,7 +481,7 @@
             </div>
         @endif
 
-
+        @if (Auth::user()->menuroles == 'admin')
         <div class="col-md-12 col-lg-6">
             <div class="card" data-aos="fade-up" data-aos-delay="1200">
                 <div class="card-header d-flex justify-content-between flex-wrap">
@@ -539,6 +539,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
     </div>
     </div>
@@ -559,7 +560,7 @@
                     enabled: false,
                 },
             },
-            colors: ["#3a57e8", "#4bc7d2", "#c03221"],
+            colors: ["#1aa053", "#f16a1b", "#c03221"],
             dataLabels: {
                 enabled: false
             },
@@ -656,7 +657,7 @@
             ],
             chart: {
                 type: 'pie',
-                width: 580,
+                width: 400,
             },
             labels: ['Visitante', 'Batismo', 'Conversão', 'Novas Pessoas'],
             responsive: [{
@@ -738,32 +739,32 @@
         chart.render();
     </script>
     <script type="text/javascript">
-    var options8 = {
-          series: [53, 67],
-          chart: {
-          type: 'radialBar',
-          width: 290,
-          sparkline: {
-            enabled: true
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        plotOptions: {
-          radialBar: {
-            hollow: {
-              margin: 0,
-              size: '50%'
-            },
-            track: {
-              margin: 1
+        var options8 = {
+            series: [53, 67],
+            chart: {
+                type: 'radialBar',
+                width: 290,
+                sparkline: {
+                    enabled: true
+                }
             },
             dataLabels: {
-              show: false
+                enabled: false
+            },
+            plotOptions: {
+                radialBar: {
+                    hollow: {
+                        margin: 0,
+                        size: '50%'
+                    },
+                    track: {
+                        margin: 1
+                    },
+                    dataLabels: {
+                        show: false
+                    }
+                }
             }
-          }
-        }
         };
 
         var chart8 = new ApexCharts(document.querySelector("#form-pagamento"), options8);

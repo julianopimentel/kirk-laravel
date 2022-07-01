@@ -2,7 +2,7 @@
 
 // Controllers
 use App\Http\Controllers\HomeController1;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashController;
 use App\Http\Controllers\Security\RolePermission;
 use App\Http\Controllers\Security\RoleController;
 use App\Http\Controllers\Security\PermissionController;
@@ -27,7 +27,7 @@ use App\Http\Controllers\LocalidadeController;
 |
 */
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // Parte do projeto atual
 
@@ -62,33 +62,32 @@ Route::post('share/save', 'WizardCustomController@store')->name('wizardCustom.st
 
 //fixar a localização
 Route::get('greeting/{locale}', function ($locale) {
-    if (! in_array($locale, ['pt','en', 'es'])) {
+    if (!in_array($locale, ['pt', 'en', 'es'])) {
         abort(400);
     }
     App::setLocale($locale);
-        return redirect()->route('welcome');
+    return redirect()->route('welcome');
 });
 
 Route::group(['middleware' => 'auth'], function () {
     // Permission Module
-    Route::get('/role-permission',[RolePermission::class, 'index'])->name('role.permission.list');
-    Route::resource('permission',PermissionController::class);
+    Route::get('/role-permission', [RolePermission::class, 'index'])->name('role.permission.list');
+    Route::resource('permission', PermissionController::class);
     Route::resource('role', RoleController::class);
 
     // Dashboard Routes
-    Route::get('/dashboard', [HomeController1::class, 'index'])->name('dashboard');
 
     // Users Module
     Route::resource('users', UserController::class);
 
     //Account
-        Route::post('/tenant/{id}', 'TenantController@tenant')->name('tenant');
-        Route::get('/tenant/{id}', 'TenantController@tenant')->name('tenantget');
-        Route::resources([
-            'account' => InstitutionsController::class,
-        ]);
+    Route::post('/tenant/{id}', 'TenantController@tenant')->name('tenant');
+    Route::get('/tenant/{id}', 'TenantController@tenant')->name('tenantget');
+    Route::resources([
+        'account' => InstitutionsController::class,
+    ]);
 
-        //mural de recado
+    //mural de recado
     Route::resource('message', 'NotesController');
 
     ///oracao
@@ -124,7 +123,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('settings/mail',        'MailController');
 
     //dash
-    Route::resource('dashboarda',        'DashController');
+    Route::get('dashboard', [DashController::class, 'index'])->name('dashboard');
     Route::resource('home',        'HomeController');
     Route::get('dados/meus-dizimos', 'HomeController@indexDizimos')->name('indexDizimos');
     Route::get('dados/meus-grupos', 'HomeController@indexGrupos')->name('indexGrupos');
@@ -154,12 +153,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('calender/aprovar/{id}', 'FullCalenderController@aprovar')->name('calendar.aprovar');
     Route::get('calender/reprovar/{id}', 'FullCalenderController@reprovar')->name('calendar.reprovar');
 
+    //financeiro
     Route::post('withdraw', 'BalanceController@withdrawStore')->name('withdraw.store');
     Route::post('deposit', 'BalanceController@depositStore')->name('deposit.store');
 
     Route::get('select2-autocomplete-people', 'BalanceController@dataAjax')->name('select.people');
     Route::get('transaction', 'BalanceController@index')->name('transaction.index');
     Route::get('transaction/{id}', 'BalanceController@show')->name('transaction.show');
+
+    // transfer routes
+    Route::get('transfer', 'BalanceController@transfer')->name('transfer');
+    Route::post('transfer-confirm', 'BalanceController@transferConfirm')->name('transfer.confirm');
+    Route::post('transfer-ok', 'BalanceController@transferStore')->name('transfer.store');
+    //Route::get('mailer-confirm', 'UserController@confirmTransfer')->name('transfer.mailer');
 
     //post e timeline em testes
     Route::get('/timeline', 'TimelineController@getArticles')->name('timeline.index');
@@ -239,23 +245,27 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/file/cropp',      'MediaController@cropp');
         Route::get('/file/copy',        'MediaController@fileCopy')->name('media.file.copy');
     });
-    
 });
 
 //App Details Page => 'registrations'], function() {
-Route::group(['prefix' => 'registrations'], function() {
+Route::group(['prefix' => 'registrations'], function () {
     //MenuStyle Page Routs
     Route::get('sermons', 'CadastrosController@showCategory')->name('sermons.showCategory');
     Route::post('sermons', 'CadastrosController@storeCategory')->name('sermons.storeCategory');
     Route::patch('sermons/{id}', 'CadastrosController@updateCategory')->name('sermons.updateCategory');
     Route::delete('sermons/{id}', 'CadastrosController@destroyCategory')->name('sermons.destroyCategory');
+
+    Route::get('contas', 'CadastrosController@showContas')->name('registrations.showContas');
+    Route::post('contas', 'CadastrosController@storeContas')->name('registrations.storeContas');
+    Route::patch('contas/{id}', 'CadastrosController@updateContas')->name('registrations.updateContas');
+    Route::delete('contas/{id}', 'CadastrosController@destroyContas')->name('registrations.destroyContas');
 });
 
 
 
 
 //Auth pages Routs
-Route::group(['prefix' => 'auth'], function() {
+Route::group(['prefix' => 'auth'], function () {
     Route::get('signin', [HomeController1::class, 'signin'])->name('auth.signin');
     Route::get('signup', [HomeController1::class, 'signup'])->name('auth.signup');
     Route::get('confirmmail', [HomeController1::class, 'confirmmail'])->name('auth.confirmmail');
@@ -265,7 +275,7 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 //Error Page Route
-Route::group(['prefix' => 'errors'], function() {
+Route::group(['prefix' => 'errors'], function () {
     Route::get('error404', [HomeController1::class, 'error404'])->name('errors.error404');
     Route::get('error500', [HomeController1::class, 'error500'])->name('errors.error500');
     Route::get('maintenance', [HomeController1::class, 'maintenance'])->name('errors.maintenance');
@@ -273,7 +283,7 @@ Route::group(['prefix' => 'errors'], function() {
 
 
 //Forms Pages Routs
-Route::group(['prefix' => 'forms'], function() {
+Route::group(['prefix' => 'forms'], function () {
     Route::get('element', [HomeController1::class, 'element'])->name('forms.element');
     Route::get('wizard', [HomeController1::class, 'wizard'])->name('forms.wizard');
     Route::get('validation', [HomeController1::class, 'validation'])->name('forms.validation');
@@ -281,7 +291,7 @@ Route::group(['prefix' => 'forms'], function() {
 
 
 //Table Page Routs
-Route::group(['prefix' => 'table'], function() {
+Route::group(['prefix' => 'table'], function () {
     Route::get('bootstraptable', [HomeController1::class, 'bootstraptable'])->name('table.bootstraptable');
     Route::get('datatable', [HomeController1::class, 'datatable'])->name('table.datatable');
 });

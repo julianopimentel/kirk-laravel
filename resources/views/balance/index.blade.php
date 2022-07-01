@@ -185,7 +185,7 @@
                                                 </td>
                                                 <td>{{ $transaction->date }}</td>
                                                 <td>{{ $transaction->type($transaction->type) }}</td>
-                                                <td>
+                                                <td>                                               
                                                     @if ($transaction->tipo)
                                                         <span class="{{ $transaction->status->class }}">
                                                             {{ $transaction->status->name }}

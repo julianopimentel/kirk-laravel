@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Balance;
 use App\Models\Category_Sermons;
 use App\Models\Roles;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class CadastrosController extends Controller
         $note->save();
         //adicionar log
         $this->adicionar_log('20', 'C', $note);
-        $request->session()->flash('success', __('general.category') . __('action.creat'));
+        session()->flash('success', __('general.category') . __('action.creat'));
         return redirect()->back();
     }
     public function updateCategory(Request $request, $id)
@@ -71,7 +72,7 @@ class CadastrosController extends Controller
         $note->save();
         //adicionar log
         $this->adicionar_log('20', 'U', $note);
-        $request->session()->flash('success', __('general.category') . __('action.update'));
+        session()->flash('success', __('general.category') . __('action.update'));
         return redirect()->back();
     }
     public function destroyCategory($id)
@@ -92,6 +93,78 @@ class CadastrosController extends Controller
             return redirect()->back();
         }
         session()->flash("info", "Categoria possui vinculo com Estudo, favor remover");
+        return redirect()->back();
+    }
+
+
+    //parte da categoria
+    public function showContas()
+    {
+        //consulta da sermons
+        $categorys = Balance::all();
+        return view('registrations.contas.Show', ['categorys' => $categorys]);
+    }
+
+    public function storeContas(Request $request)
+    {
+        //pegar tenant
+        $this->get_tenant();
+        $validatedData = $request->validate([
+            'amount'             => 'required',
+            'card_name'           => 'required',
+            'habilitar_financeiro'         => 'required',
+        ]);
+        $conta = new Balance();
+        $conta->amount   = $request->input('amount');
+        $conta->card_number     = $request->input('card_number');
+        $conta->card_name   = $request->input('card_name');
+        $conta->expire_date   = $request->input('expire_date');
+        $conta->habilitar_financeiro   = $request->input('habilitar_financeiro');
+        $conta->habilitar_qrcode   = $request->input('habilitar_qrcode');
+        $conta->qr_code   = $request->input('qr_code');
+        $conta->card_type   = $request->input('card_type');
+        $conta->banco   = $request->input('banco');
+        $conta->agencia   = $request->input('agencia');
+        $conta->conta   = $request->input('conta');
+        $conta->save();
+        //adicionar log
+        $this->adicionar_log('21', 'C', $conta);
+        session()->flash('success', __('general.contas') . __('action.creat'));
+        return redirect()->back();
+    }
+    public function updateContas(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'card_name'           => 'required',
+            'habilitar_financeiro'         => 'required',
+        ]);
+        $conta = Balance::find($id);
+        $conta->card_number     = $request->input('card_number');
+        $conta->card_name   = $request->input('card_name');
+        $conta->expire_date   = $request->input('expire_date');
+        $conta->habilitar_financeiro   = $request->input('habilitar_financeiro');
+        $conta->habilitar_qrcode   = $request->input('habilitar_qrcode');
+        $conta->qr_code   = $request->input('qr_code');
+        $conta->card_type   = $request->input('card_type');
+        $conta->banco   = $request->input('banco');
+        $conta->agencia   = $request->input('agencia');
+        $conta->conta   = $request->input('conta');
+        $conta->save();
+        //adicionar log
+        $this->adicionar_log('21', 'U', $conta);
+        session()->flash('success', __('general.contas') . __('action.update'));
+        return redirect()->back();
+    }
+    public function destroyContas($id)
+    {
+        $conta = Balance::find($id);
+        if ($conta) {
+            $conta->active = false;
+            $conta->save();
+        }
+        //adicionar
+        session()->flash('warning', __('general.contas') . __('action.delete'));
+        $this->adicionar_log('21', 'D', $conta);
         return redirect()->back();
     }
 }

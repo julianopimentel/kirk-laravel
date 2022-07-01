@@ -17,7 +17,7 @@
 <body class="boxed-fancy light theme-color-gray" id="app">
 @include('partials.dashboard._body6')
 
- @include('partials.dashboard._scripts')
+
  @include('partials.dashboard._app_toast')
 </body>
 </html>

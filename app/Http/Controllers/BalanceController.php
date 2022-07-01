@@ -30,9 +30,11 @@ class BalanceController extends Controller
         //tipos entrada ou saida
         $types = $historic->type();
         //pegar o codigo da conta
-        $conta = session()->get('key');
+        $contas = session()->get('key');
+        //pegar todas as contas financeiras
+        $contas_financeiras = Balance::all()->where("active", true);
         //saldo da conta
-        $balance = Balance::where('account_id', $conta)->first();
+        $balance = Balance::where('id', '1')->first();
         //converter para apresentacao no index
         $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
 
@@ -68,10 +70,10 @@ class BalanceController extends Controller
             ->where('is_admin', false)
             ->get();
 
-                    //dados da conta
-        $account = Institution::find($conta);
+        //dados da conta
+        $account = Institution::find($contas);
         //dados da pessoa se estiver associada a movimentação
-        return view('balance.index', compact('amount', 'statuspag', 'statusfinanentra', 'people', 'statusfinan', 'types', 'transactions', 'categories', 'month_zero', 'month_one', 'year_zero', 'year_one', 'all_zero', 'all_one', 'account'));
+        return view('balance.index', compact('amount', 'contas_financeiras', 'statuspag', 'statusfinanentra', 'people', 'statusfinan', 'types', 'transactions', 'categories', 'month_zero', 'month_one', 'year_zero', 'year_one', 'all_zero', 'all_one', 'account'));
     }
 
     //autocompletar pessoa em ajax
@@ -97,12 +99,8 @@ class BalanceController extends Controller
 
     public function depositStore(ValidationMoneyFormRequest $request)
     {
-        //pegar tenant
-        $this->get_tenant();
-        //código da conta
-        $conta = session()->get('key');
         //consulta
-        $balance = Balance::where('account_id', $conta)->first();
+        $balance = Balance::find($request->contas_financeiras);
 
         //lista de itens em um array
         $data['item'] = $request->product_description;
@@ -122,7 +120,8 @@ class BalanceController extends Controller
             $data,
             $request->sub_total,
             $request->total_tax,
-            $request->discount
+            $request->discount,
+            $request->contas_financeiras
         );
         //retorno ok
         if ($response['success']) {
@@ -136,14 +135,18 @@ class BalanceController extends Controller
     }
     public function withdrawStore(ValidationMoneyFormRequest $request)
     {
-        //pegar tenant
-        $this->get_tenant();
-        //código da conta
-        $conta = session()->get('key');
         //consulta
-        $balance = Balance::where('account_id', $conta)->first();
+        $balance = Balance::find($request->retiradaconta);
         //insert do balance/withdraw
-        $response = $balance->withdraw($request->valor, $request->pag, $request->date_lancamento, $request->observacao, $request->tipo, $request->itemName);
+        $response = $balance->withdraw(
+            $request->valor,
+            $request->pag,
+            $request->date_lancamento,
+            $request->observacao,
+            $request->tipo,
+            // $request->itemName, 
+            $request->retiradaconta
+        );
         if ($response['success']) {
             return redirect()->back()
                 ->with('success', $response['message']);
@@ -152,6 +155,45 @@ class BalanceController extends Controller
         return redirect()
             ->back()
             ->with('error', $response['message']);
+    }
+
+    //transfer form
+    public function transfer()
+    {
+        //pegar todas as contas financeiras
+        $contas_financeiras = Balance::all()->where("active", true);
+        return view('balance.transfer', compact('contas_financeiras'));
+    }
+
+    //transfer-confirm
+    public function transferConfirm(Request $request, Historic $user)
+    {
+        //consulta
+        $balance = Balance::find($request->contas_financeiras);
+        if ($balance->amount == 0)
+            return redirect()
+                ->back()
+                ->with('error', 'Conta sem saldo!');
+        //pegar todas as contas financeiras
+        $contas_financeiras = Balance::all()->whereNotIn('id', $balance->id);
+
+
+        return view('balance.transfer-confirm', compact('contas_financeiras', 'balance'));
+    }
+
+    //transfer store
+    public function transferStore(Request $request, Historic $user)
+    {
+        $balance = Balance::find($request->retirada);
+        $response = $balance->transfer($request->value, $request->entrada);
+        if ($response['success']) {
+            return redirect()->route('transaction.index')->with('success', $response['message']);
+        }
+        //retorno se estiver algo errado
+        return redirect()
+            ->back()
+            ->with('error', $response['message']);
+
     }
 
     //invoce com detalhes
