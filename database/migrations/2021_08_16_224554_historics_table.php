@@ -17,14 +17,14 @@ class historicsTable extends Migration {
 		Schema::connection('tenant')->create('historics', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->integer('balance_id');
+			$table->integer('balance_id')->nullable();
 			$table->float('amount', 10, 0);
 			$table->float('sub_total', 10, 0);
 			$table->float('total_tax', 10, 0);
 			$table->float('discount', 10, 0);
 			$table->float('total_before', 10, 0);
 			$table->float('total_after', 10, 0);
-			$table->float('rendimento', 10, 0);
+			$table->float('rendimento', 10, 0)->nullable();
 			$table->integer('user_id_transaction')->nullable();
 			$table->string('type');
             $table->string('tipo')->nullable();

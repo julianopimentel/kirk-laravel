@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Account_Integrador;
 use App\Models\Account_Transations;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use App\Models\Institution;
 use App\Models\Status;
@@ -114,7 +115,7 @@ class InstitutionsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //user data
         $you = auth()->user();
@@ -126,13 +127,15 @@ class InstitutionsController extends Controller
 
         //se tiver licença indisponivel, retorna com erro
         if ($countinst >= $license->license) {
-            $request->session()->flash("error", 'events.error_license');
+            session()->flash("error", 'events.error_license');
             return redirect('account');
         };
         //carregar status
         $statuses = Status::all()->where("type", 'system');
+        //localidade normal
+        $countries = Country::get(["name", "id"]);
 
-        return view('account.createForm', ['statuses' => $statuses]);
+        return view('account.createForm', ['statuses' => $statuses, 'countries' => $countries]);
     }
 
     public function store(Request $request)
@@ -147,7 +150,7 @@ class InstitutionsController extends Controller
 
         //se tiver licença indisponivel, retorna com erro
         if ($countinst >= $license->license) {
-            $request->session()->flash("error", 'events.error_license');
+            session()->flash("error", 'events.error_license');
             return redirect('account');
         };
         //valida se tem os dados essencial
@@ -181,13 +184,13 @@ class InstitutionsController extends Controller
         $institution->tenant        = preg_replace('/[ -]+/', '_', $tenant1);
         $institution->address1       = $request->input('address1');
         $institution->address2       = $request->input('address2');
-        $institution->city       = $request->input('city');
-        $institution->state       = $request->input('state');
+        $institution->city       = $request->input('city-dd');
+        $institution->state       = $request->input('state-dd');
         $institution->cep       = $request->input('cep');
         $institution->lat       = $request->input('lat');
         $institution->lng       = $request->input('lng');
         $institution->status_id = $request->input('type');
-        $institution->country       = $request->input('country');
+        $institution->country       = $request->input('country-dd');
         $institution->compartilhar_link       = $request->has('compartilhar_link') ? 1 : 0;
         $institution->integrador = $user->integrador_id;
         $institution->save();
@@ -214,7 +217,7 @@ class InstitutionsController extends Controller
             $useraccount->save();
             //adicionar log
             $this->adicionar_log_global('11', 'C', $useraccount);
-            $request->session()->flash("success", 'events.change_create');
+            session()->flash("success", 'events.change_create');
             //adicionar log
             $this->adicionar_log_global('9', 'C', '{"schema":"' . $institution->tenant . '"}');
             //adicionar pessoa na conta como admin e assim acessar sem erro de vinculo
@@ -245,7 +248,7 @@ class InstitutionsController extends Controller
         }
         error_log('Erro ao rodar migrations');
         //retornar com mensagem de erro
-        $request->session()->flash("danger", 'Erro ao rodar migrations');
+        session()->flash("danger", 'Erro ao rodar migrations');
         return redirect()->route('account.index');
     }
 
@@ -270,17 +273,18 @@ class InstitutionsController extends Controller
         $institution->mobile      = $request->input('phone_full');
         $institution->address1       = $request->input('address1');
         $institution->address2       = $request->input('address2');
-        $institution->city       = $request->input('city');
-        $institution->state       = $request->input('state');
+        $institution->city       = $request->input('city-dd');
+        $institution->state       = $request->input('state-dd');
         $institution->lat       = $request->input('lat');
         $institution->lng       = $request->input('lng');
         $institution->cep       = $request->input('cep');
         $institution->status_id = $request->input('type');
+        $institution->country       = $request->input('country-dd');
         $institution->compartilhar_link       = $request->has('compartilhar_link') ? 1 : 0;
         //adicionar log
         $this->adicionar_log_global('9', 'U', $institution);
         $institution->save();
-        $request->session()->flash("success", 'events.change_update');
+        session()->flash("success", 'events.change_update');
         return redirect()->route('account.index');
     }
     /**
@@ -289,7 +293,7 @@ class InstitutionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $institution = Institution::find($id);
         //validar se você é o dono da conta
@@ -310,7 +314,7 @@ class InstitutionsController extends Controller
                 $this->adicionar_log_global('11', 'D', '{"delete_account_list":"' . $id . '"}');
             }
 
-            $request->session()->flash("warning", 'events.change_delete');
+            session()->flash("warning", 'events.change_delete');
             return redirect()->route('account.index');
         } else
             //se não for, retorna um erro generico

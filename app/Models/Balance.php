@@ -130,8 +130,11 @@ class Balance extends Model
             'total_before'         => $totalBefore,
             'total_after'          => $this->amount,
             'date'                 => date('Ymd'),
+            'sub_total' => $valor,
             'balance_id'    => $entrada,
-            'user_id'  => auth()->user()->id
+            'user_id'  => auth()->user()->id,
+            'total_tax' => '0',
+            'discount' => '0'
         ]);
 
         // atualiza o saldo e historico do destinatário
@@ -146,8 +149,11 @@ class Balance extends Model
             'total_before'         => $totalBeforeSender,
             'total_after'          => $senderBalance->amount,
             'date'                 => date('Ymd'),
+            'sub_total' => $valor,
             'balance_id'    => $this->id,
-            'user_id'  => auth()->user()->id
+            'user_id'  => auth()->user()->id,
+            'total_tax' => '0',
+            'discount' => '0'
         ]);
 
         if ($transfer && $historic && $transferSender && $historicSender) {

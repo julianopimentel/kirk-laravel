@@ -46,10 +46,8 @@
                                 <div class="tab-content iq-tab-fade-up" id="v-pills-tabContent">
                                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                                         aria-labelledby="v-pills-home-tab">
-
                                         <div class="card-body">
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate,
-                                                ex ac venenatis mollis, diam nibh finibus leo</p>
+
                                             <div class="row g-3 needs-validation">
                                                 <div class="col-md-6">
                                                     <label for="account" class="form-label">Nome da
@@ -83,15 +81,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="phone" class="form-label">Contato</label>
-                                                    <input class="form-control" id="phone" name="phone" type="tel">
-                                                    <span id="valid-msg" class="hide">✓ Valid</span>
-                                                    <span id="error-msg" class="hide"></span>
+                                                <div class="form-group col-sm-3">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{ __('people.mobile') }}
+                                                        </label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" id="phone"
+                                                                name="phone" type="tel">
+                                                            <span id="valid-msg" class="hide">✓ Valid</span>
+                                                            <span id="error-msg" class="hide"></span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label for="type" class="form-label">Tipo*</label>
-                                                    <select class="form-select" id="type" name="type" required>
+                                                    <select class="form-select" id="type" name="type"
+                                                        required>
                                                         @foreach ($statuses as $status)
                                                             <option value="{{ $status->id }}">{{ $status->name }}
                                                             </option>
@@ -107,87 +112,101 @@
                                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                                         aria-labelledby="v-pills-profile-tab">
                                         <div class="card-body">
+                                            <div class="row">
                                             <div class="row g-3 needs-validation">
-                                                <div class="col-md-12">
-                                                    <label for="address" class="form-label">Address</label>
-                                                    <input class="form-control" name="address" type="text"
-                                                        placeholder="Enter street name" maxlength="200">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
+                                                <div class="form-group col-sm-8">
+                                                    <label class="form-label">{{ __('people.street') }}</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" name="address1" type="text"
+                                                            placeholder="{{ __('people.enter_street') }}">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
-                                                    <label for="city" class="form-label">City</label>
-                                                    <input class="form-control" name="city" type="text"
-                                                        placeholder="Enter your city">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
+                                                <div class="form-group col-sm-4">
+                                                    <label class="form-label">{{ __('people.postal_code') }}</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" name="cep" type="text"
+                                                            placeholder="{{ __('people.enter_postal') }}"
+                                                            pattern="[0-9]{5}-[0-9]{3}" maxlength="9">
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <label for="state" class="form-label">State</label>
-                                                    <input class="form-control" name="state" type="text"
-                                                        placeholder="State" placeholder="SP" maxlength="2">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
+                                            </div>
+                                            <div class="row">
+                                                <div class="form-group col-sm-4">
+                                                    <label class="form-label">{{ __('people.country') }}</label>
+                                                    <div class="input-group">
+                                                        <select id="country-dd" name="country-dd"
+                                                            class="form-select">
+                                                            <option value="">
+                                                                {{ __('layout.select') }}
+                                                            </option>
+                                                            @foreach ($countries as $data)
+                                                                <option value="{{ $data->id }}">
+                                                                    {{ $data->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <label for="cep" class="form-label">Postal Code</label>
-                                                    <input class="form-control" name="cep" type="text"
-                                                        placeholder="69059-627" maxlength="9"
-                                                        pattern="[0-9]{5}-[0-9]{3}">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
+                                                <div class="form-group col-sm-4">
+                                                    <label class="form-label">{{ __('people.state') }}
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <select name="state-dd" id="state-dd" class="form-select">
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="latitude" class="form-label">Latitude</label>
-                                                    <input class="form-control" name="lat" type="text" maxlength="15"
-                                                        placeholder="-27.5859412">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
+                                                <div class="form-group col-sm-4">
+                                                    <label class="form-label">{{ __('people.city') }}
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <select id="city-dd" name="city-dd" class="form-select">
+                                                        </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="logintude" class="form-label">Longitude</label>
-                                                    <input class="form-control" name="lng" type="text" maxlength="15"
-                                                        placeholder="-48.6003264">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
-                                                    </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <label for="latitude" class="form-label">Latitude</label>
+                                                <input class="form-control" name="lat" type="text"
+                                                    maxlength="15" placeholder="-27.5859412">
+                                                <div class="valid-feedback">
+                                                    Looks good!
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <label for="country" class="form-label">Country</label>
-                                                    <input class="form-control" name="country" type="text"
-                                                        placeholder="Country name" value="Brazil">
-                                                    <div class="valid-feedback">
-                                                        Looks good!
-                                                    </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="logintude" class="form-label">Longitude</label>
+                                                <input class="form-control" name="lng" type="text"
+                                                    maxlength="15" placeholder="-48.6003264">
+                                                <div class="valid-feedback">
+                                                    Looks good!
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <button id="botao" class="btn btn-success" type="submit" title="Salvar" name="enviar"
-                                    data-toggle="modal" data-target="#exampleModalScrollable">Salvar</button>
-                                <a href="{{ route('account.index') }}" class="btn btn-primary"
-                                    type="submit">Voltar</a>
-                            </div>
+                        </div>
+                        <div class="col-6">
+                            <button id="botao" class="btn btn-success" type="submit" title="Salvar"
+                                name="enviar" data-bs-toggle="modal"
+                                data-bs-target="#exampleModalScrollable">Salvar</button>
+                            <a href="{{ route('account.index') }}" class="btn btn-primary"
+                                type="submit">Voltar</a>
                         </div>
                     </div>
             </div>
+        </div>
         </div>
         </form>
 
         <!-- Modal -->
         <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+            aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-scrollable" role="document">
                 <div class="modal-content">
-
+                    <div class="spinner-border text-center" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
                     <div class="modal-body">
                         Sua conta está sendo criada, por favor aguarde um momento.
                     </div>
@@ -203,7 +222,58 @@
                 });
             });
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#country-dd').on('change', function() {
+                    var idCountry = this.value;
+                    $("#state-dd").html('');
+                    $.ajax({
+                        url: "{{ url('api/fetch-states') }}",
+                        type: "POST",
+                        data: {
+                            country_id: idCountry,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        dataType: 'json',
+                        success: function(result) {
+                            $('#state-dd').html(
+                                '<option value="">{{ __('layout.select') }} {{ __('people.state') }}</option>'
+                            );
+                            $.each(result.states, function(key, value) {
+                                $("#state-dd").append('<option value="' + value
+                                    .id + '">' + value.name + '</option>');
+                            });
+                            $('#city-dd').html(
+                                '<option value="">{{ __('layout.select') }} {{ __('people.city') }}</option>'
+                            );
+                        }
+                    });
+                });
+                $('#state-dd').on('change', function() {
+                    var idState = this.value;
+                    $("#city-dd").html('');
+                    $.ajax({
+                        url: "{{ url('api/fetch-cities') }}",
+                        type: "POST",
+                        data: {
+                            state_id: idState,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        dataType: 'json',
+                        success: function(res) {
+                            $('#city-dd').html(
+                                '<option value="">{{ __('layout.select') }} {{ __('people.city') }}</option>'
+                            );
+                            $.each(res.cities, function(key, value) {
+                                $("#city-dd").append('<option value="' + value
+                                    .id + '">' + value.name + '</option>');
+                            });
+                        }
+                    });
+                });
+            });
+        </script>
     </x-app-layout>
 @else
     @include('errors.redirecionar')

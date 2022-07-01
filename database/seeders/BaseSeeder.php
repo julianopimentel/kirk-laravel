@@ -27,7 +27,7 @@ class BaseSeeder extends Seeder
         ]);
         DB::table('balances')->insert([
             'amount' => '0',
-            'card-name' => 'PADRAO',
+            'card_name' => 'PADRAO',
             'habilitar_financeiro' => '1',
             'active' => '1',
         ]);

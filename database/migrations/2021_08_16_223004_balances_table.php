@@ -29,7 +29,7 @@ class BalancesTable extends Migration
             $table->string('qr_code')->nullable();
             $table->string('card_type')->nullable();
             $table->boolean('habilitar_financeiro')->nullable()->default(0);
-            $table->boolean('habilitar_qr')->nullable()->default(0);
+            $table->boolean('habilitar_qrcode')->nullable()->default(0);
             $table->timestamps(10);
 		});
     }

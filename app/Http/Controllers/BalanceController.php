@@ -34,9 +34,9 @@ class BalanceController extends Controller
         //pegar todas as contas financeiras
         $contas_financeiras = Balance::all()->where("active", true);
         //saldo da conta
-        $balance = Balance::where('id', '1')->first();
+        $balance = Balance::all()->sum('amount');
         //converter para apresentacao no index
-        $amount = number_format($balance ? $balance->amount : 0, '2', ',', '.');
+        $amount = number_format($balance ? $balance : 0, '2', ',', '.');
 
         $month = empty($request->get('month')) ? date('m') : $request->get('month');
         $year = empty($request->get('year')) ? date('Y') : $request->get('year');
